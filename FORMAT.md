@@ -73,13 +73,24 @@ A change whose type observes nothing SHOULD declare `NONE` rather than omit the 
 
 ## Versions and tags
 
-1. A version MUST be a [semantic version](https://semver.org/spec/v2.0.0.html).
+1. A version MUST be a [semantic version](https://semver.org/spec/v2.0.0.html), and MUST be compared by that specification's rules, so a pre-release precedes the release it names and build metadata is ignored.
 2. A version MUST NOT carry a leading `v`. A tag MUST carry one.
 3. The version a project's manifest declares, the version its changelog's newest section names, and the version its tag names MUST be the same.
 4. A repository releasing as one thing tags `v<version>`.
 5. A repository whose projects version independently tags `<project>/v<version>`.
 6. An exact version tag MUST NOT be moved once published.
-7. A floating major tag, `v<major>` or `<project>/v<major>`, MAY be moved, and MUST point at the newest release on that major line.
+7. A floating major tag, `v<major>` or `<project>/v<major>`, MAY be moved, and MUST point at the newest release on that major line. A backport MUST NOT move it backwards.
+8. A published release is not withdrawn. A release found to be wrong is superseded by another, and the superseding version's section says so.
+
+## Judging a version
+
+A tool deciding whether a version was incremented enough:
+
+1. The **baseline** is the newest tag matching the project's tag shape that is reachable from the commit being judged, which is what `git describe` answers. A tag on a branch this commit does not descend from is another line's release and MUST NOT be the baseline.
+2. The **required increment** is the largest that the types in the range imply, by the table above.
+3. The version being judged MUST be greater than or equal to the baseline incremented by the required increment, compared by semantic version rules.
+4. Greater than is not a failure. A minor already claimed by an earlier unreleased change absorbs every patch that follows it.
+5. With no baseline, any version is a first release and MUST pass.
 
 ## The changelog
 
@@ -115,6 +126,5 @@ conventions:
 
 ## Open questions
 
-- Whether a pre-release suffix is restricted to a known set, and how a tool compares one.
-- What withdrawing a published release means when an exact tag cannot move.
 - Where a project declares its version when its ecosystem has no manifest that carries one.
+- Whether a scope naming one project and a diff touching another is an error, and which of the two decides where the note lands.
