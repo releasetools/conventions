@@ -105,12 +105,13 @@ A tool deciding whether a version was incremented enough:
 
 A project's changelog follows [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.1.0/).
 
-1. Every released version MUST have a section, written in the change that earns it rather than at release time.
-2. A version's section MUST open with `## <version> - <date>`, the date in ISO 8601.
-3. Sections MUST be ordered newest first.
-4. Notes MUST be grouped under the section names in the types table, as `###` headings, and only those with something under them.
-5. A section MUST NOT carry pull request numbers, issue numbers or author handles. The release page carries those.
-6. A section MAY close with `### Choices`, recording what was chosen and what the alternative failed to do.
+1. A change a reader can observe MUST write its entry in the changelog, in the section naming the version that change claims, rather than leave it to be reconstructed at release time.
+2. Every released version MUST have a section.
+3. A version's section MUST open with `## <version> - <date>`, the date in ISO 8601.
+4. Sections MUST be ordered newest first.
+5. Notes MUST be grouped under the section names in the types table, as `###` headings, and only those with something under them.
+6. A section MUST NOT carry pull request numbers, issue numbers or author handles. The release page carries those.
+7. A section MAY close with `### Choices`, recording what was chosen and what the alternative failed to do.
 
 ## Release notes
 
