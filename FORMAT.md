@@ -134,10 +134,11 @@ conventions:
     - <name>
 ```
 
-1. `conventions.except` is a list of convention names. Each MUST match the `name` of a file in `conventions/`.
-2. A tool MUST NOT check a convention listed in `except`.
-3. A missing file is equivalent to an empty `except` list.
-4. Tools MAY ignore keys they do not recognise.
+1. The file is YAML, in the subset of it that mappings, lists, scalars and flow lists of scalars make up. A tool MAY refuse an anchor, a tag, a block scalar or anything else outside that subset, and MUST say which line it refused.
+2. `conventions.except` is a list of convention names. Each MUST match the `name` of a file in `conventions/`.
+3. A tool MUST NOT check a convention listed in `except`.
+4. A missing file is equivalent to an empty `except` list.
+5. Tools MAY ignore keys they do not recognise.
 
 The same file declares what the repository holds:
 
@@ -153,12 +154,12 @@ ignore-files:
 case-sensitive: false
 ```
 
-5. `projects` is a list of groups. `path` is one directory or a list of them, as paths or globs; `manifest` is one file or a list, every one of which a project holds MUST declare the same version; `changelog` names one file, and a group without it owes no section.
-6. A directory two groups both match belongs to the first.
-7. A file's edits do not count as its project changing when it is that project's manifest, its changelog, or matched by `ignore-files`, which defaults to `CHANGELOG.md`, `README.md` and `LICENSE` and is replaced rather than extended by what an adopter writes.
-8. An `ignore-files` pattern matches the end of a path on segment boundaries, and matches without regard to case unless `case-sensitive` is true.
-9. A `path`, a `manifest` or a `changelog` that is absolute, or that leaves the repository, MUST fail the run rather than be resolved.
-10. A repository with no `projects` is one project at its root.
+6. `projects` is a list of groups. `path` is one directory or a list of them, as paths or globs; `manifest` is one file or a list, every one of which a project holds MUST declare the same version; `changelog` names one file, and a group without it owes no section.
+7. A directory two groups both match belongs to the first.
+8. A file's edits do not count as its project changing when it is that project's manifest, its changelog, or matched by `ignore-files`, which defaults to `CHANGELOG.md`, `README.md` and `LICENSE` and is replaced rather than extended by what an adopter writes.
+9. An `ignore-files` pattern matches the end of a path on segment boundaries, and matches without regard to case unless `case-sensitive` is true.
+10. A `path`, a `manifest` or a `changelog` that is absolute, or that leaves the repository, MUST fail the run rather than be resolved.
+11. A repository with no `projects` is one project at its root.
 
 ## Open questions
 
