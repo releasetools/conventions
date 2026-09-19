@@ -47,6 +47,13 @@ Use the release notes plugin.
 
 ## Notes
 
-`node bin/adopt.mjs` in this repository writes both halves: a starter `.releasetools.yaml`, and the client configuration for the plugins named. It merges rather than overwrites, and running it twice changes nothing the second time.
+`node bin/adopt.mjs` in this repository writes a starter `.releasetools.yaml` and prints the commands that declare the plugins:
+
+```shell
+claude plugin marketplace add releasetools/agent-plugins --scope project
+claude plugin install release-notes@release-tools --scope project
+```
+
+`--scope project` is what writes the repository's `.claude/settings.json` rather than the person's own configuration. The client writes it: a script editing somebody's settings by hand gets the merge wrong on the day it matters.
 
 A plugin that only one person uses does not belong here. What belongs is the one a step of the release depends on, where doing it by hand gives a different answer.

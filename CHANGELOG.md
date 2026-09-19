@@ -4,7 +4,7 @@ Dated entries, newest first.
 
 ## 2026-09-19
 
-- `declared-plugins` joins the drafts: a repository names the agent plugins its release workflow expects, in the place the agent already reads. `node bin/adopt.mjs` writes both declarations, `.releasetools.yaml` and `.claude/settings.json`, and prints the `codex plugin add` line for each plugin. It merges into what is there, so a second run changes nothing.
+- `declared-plugins` joins the drafts: a repository names the agent plugins its release workflow expects, in the place the agent already reads. `node bin/adopt.mjs` writes a starter `.releasetools.yaml` and prints the commands that declare them: `claude plugin install <name>@<marketplace> --scope project` writes the repository's own configuration, and `codex plugin add` does the same for Codex. The clients write their own settings; a script editing them by hand gets the merge wrong on the day it matters.
 - The configuration file is `.releasetools.yaml`, and it opens with a comment naming these conventions, so somebody who finds one in a repository can tell what reads it.
 - `backport-tag` joins the drafts: a release older than the newest one is published under a mutable tag naming its line, `backport-1`, and never under `latest`. Publishing 1.2.4 as `latest` after 2.0.0 hands the older code to everybody who asked for no version at all, and nothing about what they receive says they were downgraded.
 - `changelog-per-change` joins them too, naming the rule the changelog guard checks: every change a reader can observe writes its own entry, in the change that makes it. Written at release time instead, an entry is written by whoever cut the release, from a diff, about work they may not have done, and what comes out is the diff restated.

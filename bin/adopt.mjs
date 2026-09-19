@@ -2,15 +2,15 @@
 /*
  * Adopt the releasetools conventions in a repository.
  *
- * Writes the two declarations an adopter needs: `.releasetools.yaml`, which
- * every releasetools tool reads, and the client configuration that offers the
- * plugins the workflow expects. Both are merged rather than overwritten, so a
- * second run changes nothing.
+ * Writes the declaration every releasetools tool reads, `.releasetools.yaml`,
+ * and prints the commands that declare the plugins the workflow expects. The
+ * clients write their own configuration: a script that edits somebody's
+ * settings by hand gets the merge wrong on the day it matters.
  *
- *   node bin/adopt.mjs [--dir <path>] [--plugin <name>@<marketplace>]... [--codex]
+ *   node bin/adopt.mjs [--dir <path>] [--plugin <name>@<marketplace>]...
  */
 
-import { execFileSync, spawnSync } from 'node:child_process';
+import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 
@@ -31,32 +31,23 @@ const HEADER = `# How this repository releases, read by every releasetools tool.
 function main(argv) {
   const options = read(argv);
   const root = repositoryRoot(options.dir);
-  const done = [];
 
-  done.push(writeConfig(root));
-  done.push(writeClaude(root, options.plugins));
-  done.push(codex(options.plugins, options.codex));
-
-  for (const line of done.filter(Boolean)) {
-    console.log(line);
-  }
+  console.log(writeConfig(root));
+  console.log('');
+  console.log(declare(options.plugins));
   return 0;
 }
 
 function read(argv) {
-  const options = { dir: process.cwd(), plugins: [], codex: false };
+  const options = { dir: process.cwd(), plugins: [] };
   for (let index = 0; index < argv.length; index += 1) {
     const argument = argv[index];
     if (argument === '--dir') {
       options.dir = argv[(index += 1)];
     } else if (argument === '--plugin') {
       options.plugins.push(argv[(index += 1)]);
-    } else if (argument === '--codex') {
-      options.codex = true;
     } else if (argument === '--help' || argument === '-h') {
-      console.log(
-        'node bin/adopt.mjs [--dir <path>] [--plugin <name>@<marketplace>]... [--codex]',
-      );
+      console.log('node bin/adopt.mjs [--dir <path>] [--plugin <name>@<marketplace>]...');
       process.exit(0);
     } else {
       throw new Error(`unknown argument '${argument}'`);
@@ -102,50 +93,27 @@ function writeConfig(root) {
   return 'wrote .releasetools.yaml';
 }
 
-/** Claude Code reads this, and offers to install what it does not have. */
-function writeClaude(root, plugins) {
-  const file = path.join(root, '.claude', 'settings.json');
-  const settings = fs.existsSync(file) ? JSON.parse(fs.readFileSync(file, 'utf8')) : {};
-  const before = JSON.stringify(settings);
-
-  settings.enabledPlugins ??= {};
-  settings.extraKnownMarketplaces ??= {};
-  for (const plugin of plugins) {
-    const marketplace = named(plugin);
-    settings.enabledPlugins[plugin] = true;
-    settings.extraKnownMarketplaces[marketplace] ??= {
-      source: { source: 'github', repo: MARKETPLACES[marketplace] },
-    };
-  }
-
-  if (JSON.stringify(settings) === before) {
-    return '.claude/settings.json already names them';
-  }
-  fs.mkdirSync(path.dirname(file), { recursive: true });
-  fs.writeFileSync(file, `${JSON.stringify(settings, null, 2)}\n`);
-  return `wrote .claude/settings.json: ${plugins.join(', ')}`;
-}
-
 /**
- * Codex keeps its plugins in its own configuration rather than the
- * repository's, so this is a command to run and not a file to write. It is
- * printed by default: installing into somebody's client is their call.
+ * The commands that declare the plugins, for the clients to run.
+ *
+ * `--scope project` writes the repository's own configuration rather than the
+ * person's, which is the point: the toolchain belongs to the repository, and
+ * the next contributor is offered the same plugins.
  */
-function codex(plugins, run) {
-  const commands = plugins.map((plugin) => `codex plugin add ${plugin}`);
-  if (!run) {
-    return `for Codex, run:\n  ${commands.join('\n  ')}`;
-  }
-  if (spawnSync('codex', ['--version'], { stdio: 'ignore' }).status !== 0) {
-    return 'codex is not on PATH, so nothing was added to it';
+function declare(plugins) {
+  const marketplaces = [...new Set(plugins.map(named))];
+  const lines = ['Declare the plugins, in the repository, with:', ''];
+  for (const marketplace of marketplaces) {
+    lines.push(`  claude plugin marketplace add ${MARKETPLACES[marketplace]} --scope project`);
   }
   for (const plugin of plugins) {
-    const result = spawnSync('codex', ['plugin', 'add', plugin], { stdio: 'inherit' });
-    if (result.status !== 0) {
-      return `codex plugin add ${plugin} failed`;
-    }
+    lines.push(`  claude plugin install ${plugin} --scope project`);
   }
-  return `codex: added ${plugins.join(', ')}`;
+  lines.push('', 'Codex keeps its plugins in its own configuration rather than the', "repository's:", '');
+  for (const plugin of plugins) {
+    lines.push(`  codex plugin add ${plugin}`);
+  }
+  return lines.join('\n');
 }
 
 function named(plugin) {
