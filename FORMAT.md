@@ -163,6 +163,23 @@ case-sensitive: false
 11. A `path`, a `manifest` or a `changelog` that is absolute, or that leaves the repository, MUST fail the run rather than be resolved.
 12. A repository with no `projects` is one project at its root.
 
+And how a release is cut:
+
+```yaml
+release:
+  branch: main
+  checks: tests.yml
+  publish: publish.yml
+  registry: https://registry.example/<name>/{version}
+```
+
+13. `branch` is the branch a release is cut from. Absent, it is the repository's default branch.
+14. `checks` names the workflow that MUST be green on the commit a tag will name. Absent, nothing is waited for.
+15. `publish` names the workflow a tag starts. Absent, pushing the tag is the end of it.
+16. `registry` is a URL that MAY be checked before a release, with `{version}` where the version goes. Where it is checked it MUST answer 404 for a version nobody has released. Not every registry answers a question like that, and a repository whose does not leaves it out.
+17. A tool MUST NOT tag a commit whose `checks` workflow has not passed on that commit.
+18. The shape of the tag is the one in "Versions and tags", which this section does not redeclare.
+
 ## Open questions
 
 - Where a project declares its version when its ecosystem has no manifest that carries one.
