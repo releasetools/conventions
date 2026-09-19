@@ -14,14 +14,70 @@ Adoption is opt-out: that line means all of them. To skip some, name them:
 
 > This repo follows the [releasetools conventions](https://github.com/releasetools/conventions), except `note-or-none`.
 
-Declare the same thing for tools in `.releasetools.yml` at the repo root:
+Declare the same thing for tools in `.releasetools.yaml` at the repo root:
 
 ```yaml
+# How this repository releases, read by every releasetools tool.
+#
+# Conventions: https://github.com/releasetools/conventions
+# Tools:       https://github.com/releasetools
 conventions:
   except: []
 ```
 
 A name listed under `except` turns off that convention's checks in every releasetools tool that reads the file.
+
+Name the agent plugins the workflow expects where the agent already looks, which is what [`declared-plugins`](conventions/declared-plugins.md) asks for. One command writes both declarations, merging into what is already there:
+
+```shell
+node bin/adopt.mjs
+```
+
+It creates `.releasetools.yaml` if the repository has none, then prints the commands that declare the plugins: `claude plugin marketplace add <repo> --scope project` and `claude plugin install <name>@<marketplace> --scope project`, which write the repository's own `.claude/settings.json`, and the `codex plugin add` line for each, since Codex keeps its plugins in its own configuration. Pass `--plugin <name>@<marketplace>` for anything beyond the release-notes plugin.
+
+## Guide
+
+The conventions say what a tool checks. This says what a good release note reads like, which no tool can check.
+
+### Write for somebody deciding whether to upgrade
+
+They are on the previous version, something broke or they want the new thing, and they are scanning. They do not know your internal names, they were not in the discussion, and they will read one line before deciding whether to read the rest.
+
+So a note says what a person running the software sees differently, and what they do about it.
+
+> **Bad** Added flag for batch mode
+>
+> **Good** Batch mode processes up to 10,000 records per request. Enable it with the `batch=true` query parameter.
+
+The bad one names a flag without saying what it does, which moves the reader's problem rather than solving it.
+
+### Name the symptom, not the cause
+
+A fix is read by somebody wondering whether it was their bug.
+
+> **Bad** Fixed ignored file handling
+>
+> **Good** Removing a worktree deleted ignored files, at exit 0 and without a word
+
+The second tells them whether it happened to them. The first tells them nothing they can match against a memory.
+
+### One test decides whether there is a note at all
+
+**Can a person running this software observe it?** A different result, a different line of output, a different exit code, a new flag, a changed message. If none of those moved, it is `NONE`, whatever the change cost to build.
+
+A command gaining an internal wrapper is not news. The same command refusing where it used to delete is.
+
+### A breaking change owes more
+
+The version says something broke. It does not say what to type instead, and the person reading it is mid-upgrade with a failing build. Say what moved, and what replaces it. Where the answer needs a table, put the table in the note and keep the footer to the sentence somebody reads in a terminal.
+
+### What never goes in a note
+
+Pull request numbers, issue numbers, branch names, commit hashes, author handles, and internal names for things. The reader is deciding whether to upgrade, not auditing the work, and a release page carries all of that underneath, generated, without anybody maintaining it.
+
+### Write it when you know it
+
+The reason a note is declared on the change rather than assembled at release is that the person who made the change is the only one who knows why, and they know it now. A week later it is a diff, and a diff cannot say which alternative was weighed and dropped.
 
 ## Reading
 
