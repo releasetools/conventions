@@ -9,23 +9,94 @@ This is the machine-readable part of the conventions: what tools in releasetools
 - **change** — the unit that carries a release note: a pull request or merge request, or a commit where those do not exist.
 - **release note** — a short statement, written for the software's users, of one thing the change did.
 - **declaration** — the block in a change's description that carries its release notes, or the word `NONE`.
+- **project** — a directory with its own version. A repository is one project unless it declares several.
+
+## The subject
+
+A change's subject line follows [Conventional Commits 1.0.0](https://www.conventionalcommits.org/en/v1.0.0/):
+
+```
+<type>[(<scope>)][!]: <description>
+```
+
+1. A change MUST carry a type from the table below.
+2. A change MAY carry a scope. In a repository declaring more than one project, the scope MUST be a project's name, and is what routes the change's release note to that project.
+3. A `!` before the `:` marks the change breaking.
+4. A tool MUST treat a type it does not recognise as observing nothing, and SHOULD say which type it did not recognise.
+
+Under a squash merge the pull request title becomes the subject, so the subject is declared once.
+
+## Types
+
+| type | version | changelog section |
+| --- | --- | --- |
+| `feat` | minor | Added |
+| `fix` | patch | Fixed |
+| `perf` | patch | Changed |
+| `deprecate` | minor | Deprecated |
+| `remove` | major | Removed |
+| `security` | patch | Security |
+| `refactor`, `test`, `docs`, `build`, `ci`, `chore`, `style` | none | none |
+
+1. A change of type `remove` MUST be marked breaking.
+2. A change marked breaking MUST increment the major, whatever its type.
+3. Under `0.y.z`, a change that would increment the major MUST increment the minor instead, and every other change MUST increment the patch.
+4. A release MUST increment by the largest increment among the changes in its range.
+5. A release whose range contains no change that observes anything MUST still increment the patch.
+
+## Breaking changes
+
+1. A change marked breaking MUST carry a `BREAKING CHANGE:` footer.
+2. The footer's value MUST say what to do instead.
+3. A tool MUST fail a breaking change with no footer, or with an empty one.
+4. Generated release notes MUST place breaking changes first, and MUST render each footer with its note.
 
 ## The block
 
 A release note is declared in a fenced code block tagged `release-note` in the change's description:
 
+````
 ```release-note
-Fixed a crash when the config file is empty.
+Batch mode processes up to 10,000 records per request. Enable it with the
+batch=true query parameter.
 ```
+````
 
 1. A change MUST contain at most one `release-note` block.
-2. The block MUST contain either one or more release notes, one per line, or the single word `NONE`.
-3. Text outside the block MUST NOT be treated as a release note.
-4. Leading and trailing whitespace on each line, and empty lines, SHOULD be ignored.
+2. The block MUST contain either one release note, as Markdown, or the single word `NONE`.
+3. The block carries prose only. The type, the scope and the breaking marker are read from the subject, so nothing is declared in two places.
+4. Text outside the block MUST NOT be treated as a release note.
+5. Leading and trailing whitespace, and leading and trailing empty lines, SHOULD be ignored.
+6. A change needing notes under two different sections is two changes.
 
-## Notes
+A change whose type observes nothing SHOULD declare `NONE` rather than omit the block, so that a missing block is always a mistake and never a judgement.
 
-To be defined: whether a note carries structured fields, how notes are ordered when collected, and how special characters are escaped. See open questions.
+## Versions and tags
+
+1. A version MUST be a [semantic version](https://semver.org/spec/v2.0.0.html).
+2. A version MUST NOT carry a leading `v`. A tag MUST carry one.
+3. The version a project's manifest declares, the version its changelog's newest section names, and the version its tag names MUST be the same.
+4. A repository releasing as one thing tags `v<version>`.
+5. A repository whose projects version independently tags `<project>/v<version>`.
+6. An exact version tag MUST NOT be moved once published.
+7. A floating major tag, `v<major>` or `<project>/v<major>`, MAY be moved, and MUST point at the newest release on that major line.
+
+## The changelog
+
+A project's changelog follows [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.1.0/).
+
+1. A version's section MUST open with `## <version> - <date>`, the date in ISO 8601.
+2. Sections MUST be ordered newest first.
+3. Notes MUST be grouped under the section names in the types table, as `###` headings, and only those with something under them.
+4. A section MUST NOT carry pull request numbers, issue numbers or author handles. The release page carries those.
+5. A section MAY close with `### Choices`, recording what was chosen and what the alternative failed to do.
+
+## Release notes
+
+1. Generated release notes MUST begin with the changelog section for the version being released.
+2. They MAY be followed by generated material: contributors, merged changes, a comparison link.
+3. A release whose section is empty MUST publish a configured default rather than nothing.
+4. A release whose section is missing MUST fail rather than publish empty notes.
 
 ## Configuration
 
@@ -44,6 +115,6 @@ conventions:
 
 ## Open questions
 
-- Block tag: `release-note` (Kubernetes-compatible, already a habit for many contributors) or `releasetools` (identifies the brand, and avoids being read by existing Kubernetes tooling that looks for `release-note`).
-- Whether a note carries structured fields (kind, area, breaking-change marker) or is prose only.
-- Whether a note may span multiple lines, and if so how notes are delimited.
+- Whether a pre-release suffix is restricted to a known set, and how a tool compares one.
+- What withdrawing a published release means when an exact tag cannot move.
+- Where a project declares its version when its ecosystem has no manifest that carries one.
