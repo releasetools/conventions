@@ -147,6 +147,7 @@ projects:
   - path: packages/*
     manifest: package.json
     changelog: CHANGELOG.md
+    bump: npm version {version} --no-git-tag-version
 ignore-files:
   - CHANGELOG.md
   - README.md
@@ -155,11 +156,12 @@ case-sensitive: false
 ```
 
 6. `projects` is a list of groups. `path` is one directory or a list of them, as paths or globs; `manifest` is one file or a list, every one of which a project holds MUST declare the same version; `changelog` names one file, and a group without it owes no section.
-7. A directory two groups both match belongs to the first.
-8. A file's edits do not count as its project changing when it is that project's manifest, its changelog, or matched by `ignore-files`, which defaults to `CHANGELOG.md`, `README.md` and `LICENSE` and is replaced rather than extended by what an adopter writes.
-9. An `ignore-files` pattern matches the end of a path on segment boundaries, and matches without regard to case unless `case-sensitive` is true.
-10. A `path`, a `manifest` or a `changelog` that is absolute, or that leaves the repository, MUST fail the run rather than be resolved.
-11. A repository with no `projects` is one project at its root.
+7. `bump` is the command that sets a project's version, with `{version}` where the version goes. Every ecosystem ships one, so no tool writes a manifest it was not told how to write. A project without it is set by hand, or by whatever knows that manifest's shape.
+8. A directory two groups both match belongs to the first.
+9. A file's edits do not count as its project changing when it is that project's manifest, its changelog, or matched by `ignore-files`, which defaults to `CHANGELOG.md`, `README.md` and `LICENSE` and is replaced rather than extended by what an adopter writes.
+10. An `ignore-files` pattern matches the end of a path on segment boundaries, and matches without regard to case unless `case-sensitive` is true.
+11. A `path`, a `manifest` or a `changelog` that is absolute, or that leaves the repository, MUST fail the run rather than be resolved.
+12. A repository with no `projects` is one project at its root.
 
 ## Open questions
 
