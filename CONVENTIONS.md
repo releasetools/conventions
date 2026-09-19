@@ -9,5 +9,7 @@ One line per convention. Each name links to its full entry.
 | [`semver-versions`](conventions/semver-versions.md) | Every released version is a semantic version, and the version a release declares is the version its tag names. | draft |
 | [`bump-from-type`](conventions/bump-from-type.md) | The part of the version that increments follows from the types of the changes being released. | draft |
 | [`breaking-says-how`](conventions/breaking-says-how.md) | A breaking change says what to do instead, in a `BREAKING CHANGE:` footer, and the release notes lead with it. | draft |
+| [`changelog-per-release`](conventions/changelog-per-release.md) | Every released version has a changelog section, written in the change that earns it. | draft |
+| [`backport-tag`](conventions/backport-tag.md) | A release older than the newest one is published under a mutable tag naming its line, and never under the one that means newest. | draft |
 
 Statuses: `draft` (proposed, not yet enforced by any tool), `active`, `deprecated` (kept for existing adopters; the entry names its successor).

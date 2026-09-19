@@ -82,6 +82,15 @@ A change whose type observes nothing SHOULD declare `NONE` rather than omit the 
 7. A floating major tag, `v<major>` or `<project>/v<major>`, MAY be moved, and MUST point at the newest release on that major line. A backport MUST NOT move it backwards.
 8. A published release is not withdrawn. A release found to be wrong is superseded by another, and the superseding version's section says so.
 
+## Distribution tags
+
+A registry's mutable tags, such as npm's dist-tags, point at immutable versions.
+
+1. The tag meaning newest, `latest` on npm, MUST point at the highest version published, compared by semantic version rules.
+2. A release lower than what that tag names MUST NOT be published to it. It MUST be published to `backport-<major>`.
+3. A line tag MUST only move forwards within its line. A release lower than what its own line tag names is published under no mutable tag.
+4. A pre-release MUST NOT be published to the tag meaning newest.
+
 ## Judging a version
 
 A tool deciding whether a version was incremented enough:
@@ -96,11 +105,12 @@ A tool deciding whether a version was incremented enough:
 
 A project's changelog follows [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.1.0/).
 
-1. A version's section MUST open with `## <version> - <date>`, the date in ISO 8601.
-2. Sections MUST be ordered newest first.
-3. Notes MUST be grouped under the section names in the types table, as `###` headings, and only those with something under them.
-4. A section MUST NOT carry pull request numbers, issue numbers or author handles. The release page carries those.
-5. A section MAY close with `### Choices`, recording what was chosen and what the alternative failed to do.
+1. Every released version MUST have a section, written in the change that earns it rather than at release time.
+2. A version's section MUST open with `## <version> - <date>`, the date in ISO 8601.
+3. Sections MUST be ordered newest first.
+4. Notes MUST be grouped under the section names in the types table, as `###` headings, and only those with something under them.
+5. A section MUST NOT carry pull request numbers, issue numbers or author handles. The release page carries those.
+6. A section MAY close with `### Choices`, recording what was chosen and what the alternative failed to do.
 
 ## Release notes
 
@@ -123,6 +133,27 @@ conventions:
 2. A tool MUST NOT check a convention listed in `except`.
 3. A missing file is equivalent to an empty `except` list.
 4. Tools MAY ignore keys they do not recognise.
+
+The same file declares what the repository holds:
+
+```yaml
+projects:
+  - path: packages/*
+    manifest: package.json
+    changelog: CHANGELOG.md
+ignore-files:
+  - CHANGELOG.md
+  - README.md
+  - LICENSE
+case-sensitive: false
+```
+
+5. `projects` is a list of groups. `path` is one directory or a list of them, as paths or globs; `manifest` is one file or a list, every one of which a project holds MUST declare the same version; `changelog` names one file, and a group without it owes no section.
+6. A directory two groups both match belongs to the first.
+7. A file's edits do not count as its project changing when it is that project's manifest, its changelog, or matched by `ignore-files`, which defaults to `CHANGELOG.md`, `README.md` and `LICENSE` and is replaced rather than extended by what an adopter writes.
+8. An `ignore-files` pattern matches the end of a path on segment boundaries, and matches without regard to case unless `case-sensitive` is true.
+9. A `path`, a `manifest` or a `changelog` that is absolute, or that leaves the repository, MUST fail the run rather than be resolved.
+10. A repository with no `projects` is one project at its root.
 
 ## Open questions
 
