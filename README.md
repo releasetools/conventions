@@ -14,14 +14,26 @@ Adoption is opt-out: that line means all of them. To skip some, name them:
 
 > This repo follows the [releasetools conventions](https://github.com/releasetools/conventions), except `note-or-none`.
 
-Declare the same thing for tools in `.releasetools.yml` at the repo root:
+Declare the same thing for tools in `.releasetools.yaml` at the repo root:
 
 ```yaml
+# How this repository releases, read by every releasetools tool.
+#
+# Conventions: https://github.com/releasetools/conventions
+# Tools:       https://github.com/releasetools
 conventions:
   except: []
 ```
 
 A name listed under `except` turns off that convention's checks in every releasetools tool that reads the file.
+
+Name the agent plugins the workflow expects where the agent already looks, which is what [`declared-plugins`](conventions/declared-plugins.md) asks for. One command writes both declarations, merging into what is already there:
+
+```shell
+node bin/adopt.mjs
+```
+
+It creates `.releasetools.yaml` if the repository has none, adds the plugins to `.claude/settings.json` with the marketplace they come from, and prints the `codex plugin add` line for each, since Codex keeps its plugins in its own configuration rather than the repository's. Pass `--codex` to run those too, and `--plugin <name>@<marketplace>` for anything beyond the release-notes plugin.
 
 ## Guide
 

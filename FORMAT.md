@@ -122,9 +122,13 @@ A project's changelog follows [Keep a Changelog 1.1.0](https://keepachangelog.co
 
 ## Configuration
 
-Adopters declare exceptions in `.releasetools.yml` at the repo root:
+Adopters declare exceptions in `.releasetools.yaml` at the repo root. The file SHOULD open with a comment naming these conventions, so a reader who has not seen one before can find out what reads it:
 
 ```yaml
+# How this repository releases, read by every releasetools tool.
+#
+# Conventions: https://github.com/releasetools/conventions
+# Tools:       https://github.com/releasetools
 conventions:
   except:
     - <name>
