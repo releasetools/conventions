@@ -4,6 +4,9 @@ Dated entries, newest first.
 
 ## 2026-09-20
 
+- `semver-versions` is active. A released version being a semantic version, and naming the version its tag names, is
+  settled enough to rely on, and `versions-guard` checks the first half of it. Three conventions are active and six are
+  drafts.
 - `semver-versions` names `versions-guard`, which refuses a manifest version it cannot parse and two manifests of one
   project that disagree. That is the first half of the convention. The second half, that the tag names what the release
   declares, is checked by nothing, and the entry says so.
