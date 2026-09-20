@@ -4,6 +4,9 @@ Dated entries, newest first.
 
 ## 2026-09-20
 
+- A changelog for a project that carries no version dates its sections, `## <date>`, and holds one list under each
+  rather than the groups a release is shaped into. A version became optional when a project without one stopped being
+  released, and nothing said what its changelog looked like. This repository's own is the example.
 - `bump-from-type` and `changelog-per-change` are active. Each is settled enough to rely on and each names the action
   that checks it, so an adopter reading either one is reading a practice a tool already enforces rather than a proposal.
   The other seven stay draft.

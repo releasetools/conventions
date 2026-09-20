@@ -132,11 +132,14 @@ A project's changelog follows [Keep a Changelog 1.1.0](https://keepachangelog.co
    claims, rather than leave it to be reconstructed at release time.
 2. Every released version MUST have a section.
 3. A version's section MUST open with `## <version> - <date>`, the date in ISO 8601.
-4. Sections MUST be ordered newest first.
-5. Notes MUST be grouped under the section names in the types table, as `###` headings, and only those with something
-   under them.
-6. A section MUST NOT carry pull request numbers, issue numbers or author handles. The release page carries those.
-7. A section MAY close with `### Choices`, recording what was chosen and what the alternative failed to do.
+4. A project that carries no version dates its sections instead, `## <date>` in ISO 8601, and an entry goes in the
+   section for the day it lands. Those sections hold one list rather than the groups below, which shape a release that a
+   project with no version never cuts.
+5. Sections MUST be ordered newest first.
+6. Notes in a version's section MUST be grouped under the section names in the types table, as `###` headings, and only
+   those with something under them.
+7. A section MUST NOT carry pull request numbers, issue numbers or author handles. The release page carries those.
+8. A section MAY close with `### Choices`, recording what was chosen and what the alternative failed to do.
 
 ## Release notes
 
