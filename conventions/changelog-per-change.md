@@ -1,6 +1,6 @@
 ---
 name: changelog-per-change
-status: draft
+status: active
 checked_by:
   - https://github.com/releasetools/actions/tree/main/changelog-guard
 superseded_by: null
