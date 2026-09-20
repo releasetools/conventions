@@ -33,7 +33,7 @@ Name the agent plugins the workflow expects where the agent already looks, which
 node bin/adopt.mjs
 ```
 
-It creates `.releasetools.yaml` if the repository has none, then prints the commands that declare the plugins: `claude plugin marketplace add <repo> --scope project` and `claude plugin install <name>@<marketplace> --scope project`, which write the repository's own `.claude/settings.json`, and the `codex plugin add` line for each, since Codex keeps its plugins in its own configuration. Pass `--plugin <name>@<marketplace>` for anything beyond the release-notes plugin.
+It creates `.releasetools.yaml` if the repository has none, naming the repository itself as the one project, then prints the commands that declare the plugins: `claude plugin marketplace add <repo> --scope project` and `claude plugin install <name>@<marketplace> --scope project`, which write the repository's own `.claude/settings.json`, and the `codex plugin add` line for each, since Codex keeps its plugins in its own configuration. Pass `--plugin <name>@<marketplace>` for anything beyond the release-notes plugin.
 
 ## Guide
 
