@@ -1,0 +1,14 @@
+{
+  "name": "@releasetools/conventions",
+  "private": true,
+  "description": "Named, individually adoptable practices for writing release notes.",
+  "license": "CC-BY-4.0",
+  "type": "module",
+  "scripts": {
+    "lint": "prettier --check .",
+    "format": "prettier --write ."
+  },
+  "devDependencies": {
+    "prettier": "3.9.8"
+  }
+}

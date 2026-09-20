@@ -123,9 +123,7 @@ function named(plugin) {
   }
   if (!MARKETPLACES[marketplace]) {
     throw new Error(
-      `marketplace '${marketplace}' is not one this knows; the names are ${Object.keys(
-        MARKETPLACES,
-      ).join(', ')}`,
+      `marketplace '${marketplace}' is not one this knows; the names are ${Object.keys(MARKETPLACES).join(', ')}`,
     );
   }
   return marketplace;

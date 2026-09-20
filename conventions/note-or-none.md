@@ -11,9 +11,11 @@ Every change declares a release note, or explicitly declares that it has none.
 
 ## Why
 
-Release notes written at release time are written from memory, often by someone who did not make the change. Requiring each change to declare its own note moves the writing to the person who knows what changed, at the moment they know it.
+Release notes written at release time are written from memory, often by someone who did not make the change. Requiring
+each change to declare its own note moves the writing to the person who knows what changed, at the moment they know it.
 
-Requiring an explicit "none" is what makes the rule checkable: a missing declaration is then always a mistake, never a judgement call about whether the change was user-facing.
+Requiring an explicit "none" is what makes the rule checkable: a missing declaration is then always a mistake, never a
+judgement call about whether the change was user-facing.
 
 ## Examples
 
@@ -33,4 +35,5 @@ Bad — nothing declared. A tool cannot tell whether the author decided the chan
 
 ## Notes
 
-What counts as a change (pull request, merge request, commit) and where the declaration lives are defined in [FORMAT.md](../FORMAT.md). This convention only says that the declaration is present.
+What counts as a change (pull request, merge request, commit) and where the declaration lives are defined in
+[FORMAT.md](../FORMAT.md). This convention only says that the declaration is present.
