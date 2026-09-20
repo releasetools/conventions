@@ -7,6 +7,10 @@ Dated entries, newest first.
 - Every rule in `context7.json` fits the 255 characters its schema allows. Two ran over, so Context7 refused the whole
   file and the repository indexed with none of them. The schema caps `projectTitle` at 100, `description` at 200 and
   each rule at 255, and each `excludeFiles` entry is a bare filename.
+- `agent-index` says what each file is for. `context7.json` is what a repository commits, and `llms.txt` belongs to a
+  site: it stands in for pages that bury their content in navigation and markup, which a repository of markdown does not
+  do, so a project without a site owes none. Asked for as a pair, the second was a file with no consumer and no reader
+  to notice.
 - `context7.json` describes this repository to agents: what it is, what to exclude, and the rules an agent should repeat
   about declaring a note, typing a change, footnoting a break and writing the entry. It excludes `CHANGELOG.md`, so a
   question about a convention is answered by the convention rather than by a history of edits to it. There is no
