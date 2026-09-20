@@ -7,7 +7,8 @@ superseded_by: null
 
 # <name>
 
-<The convention, in one sentence. True on its own and checkable, in descriptive voice: "a release note names the user-facing change", not "a release note MUST name the user-facing change".>
+<The convention, in one sentence. True on its own and checkable, in descriptive voice: "a release note names the
+user-facing change", not "a release note MUST name the user-facing change".>
 
 ## Why
 

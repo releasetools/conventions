@@ -7,13 +7,18 @@ superseded_by: null
 
 # semver-versions
 
-Every released version is a [semantic version](https://semver.org/spec/v2.0.0.html), and the version a release declares is the version its tag names.
+Every released version is a [semantic version](https://semver.org/spec/v2.0.0.html), and the version a release declares
+is the version its tag names.
 
 ## Why
 
-A version is a promise about compatibility, and the only reason it can be read by a resolver, a range, a lockfile or a person in a hurry is that everybody agreed what the parts mean. A version that is not semantic is a serial number, and a range over serial numbers is a guess.
+A version is a promise about compatibility, and the only reason it can be read by a resolver, a range, a lockfile or a
+person in a hurry is that everybody agreed what the parts mean. A version that is not semantic is a serial number, and a
+range over serial numbers is a guess.
 
-The second half matters as much as the first. A manifest saying `0.4.1` under a tag saying `v0.4.2` means one of them is lying to somebody, and which one depends on where the reader looked. Every tool that reads a version reads exactly one of those places.
+The second half matters as much as the first. A manifest saying `0.4.1` under a tag saying `v0.4.2` means one of them is
+lying to somebody, and which one depends on where the reader looked. Every tool that reads a version reads exactly one
+of those places.
 
 ## Examples
 
@@ -43,8 +48,12 @@ v0.4           two parts
 
 ## Notes
 
-A tag carries the `v`; a version does not. `v0.4.2` is what `git tag` holds, `0.4.2` is what a manifest, a chart and a package index hold. Tools accept either where a human types one, and print the one their output is for.
+A tag carries the `v`; a version does not. `v0.4.2` is what `git tag` holds, `0.4.2` is what a manifest, a chart and a
+package index hold. Tools accept either where a human types one, and print the one their output is for.
 
-A pre-release sorts before the release it names, which is what `1.0.0-rc.1 < 1.0.0` means and why an `rc` cannot be published as the thing it is a candidate for. Build metadata sorts nowhere: two versions differing only after a `+` are the same version.
+A pre-release sorts before the release it names, which is what `1.0.0-rc.1 < 1.0.0` means and why an `rc` cannot be
+published as the thing it is a candidate for. Build metadata sorts nowhere: two versions differing only after a `+` are
+the same version.
 
-Where projects version independently, each carries its own and the tag names both the project and the version. The shape of that tag is in [FORMAT.md](../FORMAT.md).
+Where projects version independently, each carries its own and the tag names both the project and the version. The shape
+of that tag is in [FORMAT.md](../FORMAT.md).
