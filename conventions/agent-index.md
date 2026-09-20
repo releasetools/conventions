@@ -36,3 +36,8 @@ Good, an `llms.txt` written to [the specification](https://llmstxt.org): a title
 should read first.
 
 Bad, neither file, and a README that assumes its reader already knows what the project is for.
+
+## Notes
+
+`.claude/settings.json` is a file an agent reads too. What goes in it is [`declared-plugins`](declared-plugins.md)
+rather than this, which covers the two files describing the project itself.
