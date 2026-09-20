@@ -83,9 +83,10 @@ function repositoryRoot(dir) {
     return execFileSync('git', ['rev-parse', '--show-toplevel'], {
       cwd: dir,
       encoding: 'utf8',
+      stdio: ['ignore', 'pipe', 'ignore'],
     }).trim();
   } catch {
-    return path.resolve(dir);
+    throw new Error(`${path.resolve(dir)} is not in a git repository`);
   }
 }
 
