@@ -4,6 +4,10 @@ Dated entries, newest first.
 
 ## 2026-09-20
 
+- A scope naming one project while the diff touches another is not an error. The scope decides where the note lands,
+  because it is what the author declared, and a tool reports the difference rather than failing the run. A change owing
+  a note to two projects is two changes, which the block already says. That was the format's last open question, and the
+  section goes with it.
 - `node bin/adopt.mjs` reports `no manifest declares a version, so none is named` where it used to ask for one. A
   project that carries no version omits the key, so the run no longer asks for what the format does not want, and it
   still says where to name the file for a project that has a version somewhere the run could not read.
