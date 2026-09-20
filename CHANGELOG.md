@@ -4,6 +4,12 @@ Dated entries, newest first.
 
 ## 2026-09-20
 
+- `docs-with-change` asks that a change a reader can observe updates the documentation of the behaviour it touches, in
+  the change that makes it. Documentation left for a follow-up is documentation nobody writes, and the surface that went
+  wrong is rarely the one its author would have thought to open.
+- `agent-index` asks a repository to describe itself to agents in a `context7.json` and an `llms.txt`, and links the
+  guidance for writing each rather than restating it. Without them an agent describes the project from whatever it
+  happens to read.
 - `bin/adopt.mjs` is gone, and `npx @releasetools/config adopt` replaces it. Running the old one meant cloning the
   repository adoption is about, and it carried its own copy of the manifest reader that `@releasetools/config` publishes
   for the guards that read what it wrote.
