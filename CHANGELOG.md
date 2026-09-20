@@ -4,6 +4,10 @@ Dated entries, newest first.
 
 ## 2026-09-20
 
+- `manifest` is required of a project that carries a version and omitted by one that does not. A project with no version
+  is not released: nothing bumps it, no tag names it, and a tool asked to release it says so and stops. Required of
+  everything, the key forced a repository with nothing to name, such as this one, to either invent a version or write a
+  declaration the format rejects.
 - `node bin/adopt.mjs` outside a git repository stops with `adopt: <path> is not in a git repository` and exit 1. It
   used to print git's own `fatal:` line, then write `.releasetools.yaml` into whatever directory it had been pointed at,
   where no tool reading the file would ever find it.
