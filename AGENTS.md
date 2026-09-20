@@ -15,6 +15,11 @@ what it meant when they wrote it.
 Every file in `conventions/` is a convention, because an adopter's `except` name has to
 [match one](FORMAT.md#configuration). Anything else lives elsewhere, which is why the template does.
 
+`checked_by` lists what checks the convention, each entry an `https://` URL naming the tool itself, such as
+`https://github.com/releasetools/actions/tree/main/changelog-guard`. It is empty until something does. `status` is
+`draft` until the maintainer judges the convention settled enough to rely on, and `active` is that judgement rather than
+a consequence of the list filling up.
+
 ## Writing here
 
 Normative language belongs in [FORMAT.md](FORMAT.md) and nowhere else. A convention is descriptive: "a release note

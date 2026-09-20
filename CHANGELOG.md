@@ -4,6 +4,11 @@ Dated entries, newest first.
 
 ## 2026-09-20
 
+- `checked_by` names what checks a convention, each entry an `https://` URL to the tool itself. `bump-from-type` names
+  `versions-guard`, which fails a pull request whose version did not move far enough for the types in its range, and
+  `changelog-per-change` names `changelog-guard`, which fails one that changed a project and wrote nothing down.
+  `active` is the maintainer's judgement that a convention is settled enough to rely on, rather than something the list
+  filling up decides.
 - A scope naming one project while the diff touches another is not an error. The scope decides where the note lands,
   because it is what the author declared, and a tool reports the difference rather than failing the run. A change owing
   a note to two projects is two changes, which the block already says. That was the format's last open question, and the
