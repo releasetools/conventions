@@ -22,6 +22,9 @@ const MARKETPLACES = {
 
 const DEFAULT_PLUGINS = ['release-notes@release-tools'];
 
+/** The manifests a starter declaration can name, in the order they are tried. */
+const MANIFESTS = ['package.json', 'pyproject.toml', 'Cargo.toml', 'VERSION'];
+
 const HEADER = `# How this repository releases, read by every releasetools tool.
 #
 # Conventions: https://github.com/releasetools/conventions
@@ -77,9 +80,20 @@ function writeConfig(root) {
     return '.releasetools.yaml is already there';
   }
 
-  const manifest = ['package.json', 'pyproject.toml', 'Cargo.toml', 'VERSION'].find((name) =>
-    fs.existsSync(path.join(root, name)),
-  );
+  const skipped = [];
+  let manifest = null;
+  for (const name of MANIFESTS) {
+    const candidate = path.join(root, name);
+    if (!fs.existsSync(candidate)) {
+      continue;
+    }
+    if (versionIn(candidate)) {
+      manifest = name;
+      break;
+    }
+    skipped.push(name);
+  }
+
   const changelog = fs.existsSync(path.join(root, 'CHANGELOG.md')) ? 'CHANGELOG.md' : null;
   const lines = [HEADER, 'projects:', '  - path: ./'];
   if (manifest) {
@@ -90,7 +104,37 @@ function writeConfig(root) {
   }
   lines.push('', 'conventions:', '  except: []', '');
   fs.writeFileSync(file, lines.join('\n'));
-  return 'wrote .releasetools.yaml';
+
+  const report = ['wrote .releasetools.yaml'];
+  for (const name of skipped) {
+    report.push(`  skipped ${name}, which declares no version`);
+  }
+  if (!manifest) {
+    report.push("  name the file that carries this project's version under manifest:");
+  }
+  return report.join('\n');
+}
+
+/**
+ * The version a manifest declares, or null.
+ *
+ * FORMAT.md says where each kind of file keeps it. One that declares none is
+ * not this project's manifest, whatever its name, and naming it would write a
+ * declaration no tool can read a version out of.
+ */
+function versionIn(file) {
+  const text = fs.readFileSync(file, 'utf8');
+  if (file.endsWith('.json')) {
+    try {
+      return JSON.parse(text).version ?? null;
+    } catch {
+      return null;
+    }
+  }
+  if (file.endsWith('.toml')) {
+    return text.match(/^\s*version\s*=\s*['"]([^'"]+)['"]/m)?.[1] ?? null;
+  }
+  return text.trim() || null;
 }
 
 /**

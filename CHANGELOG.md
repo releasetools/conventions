@@ -4,6 +4,9 @@ Dated entries, newest first.
 
 ## 2026-09-20
 
+- `node bin/adopt.mjs` names a manifest only when it declares a version, and says which candidate it skipped. A
+  `package.json` that is a private tooling manifest would otherwise be written into `.releasetools.yaml` as the file
+  carrying this project's version, which is the one thing FORMAT.md says a manifest is for.
 - The README is an index: what a convention is, how to adopt one, and where everything else lives. What a good release
   note reads like is in [`guides/release-notes.md`](guides/release-notes.md), and `guides/README.md` carries the guides'
   own index, their provenance, and the rule about serving files from a `.github` repository.
