@@ -4,6 +4,11 @@ Dated entries, newest first.
 
 ## 2026-09-20
 
+- `signed-git` describes a workflow using branches and pull requests, signed commits and tags, and worktrees managed
+  with `git-worktrees`. Squash merges are the default; rebase merges retain signed commits. The convention explains
+  GitHub's squash signatures and why its unsigned rebase merges do not qualify. Each new branch attempts to fetch the
+  latest remote default branch, and pushes after rebasing use a lease. Pull request descriptions and merge commit bodies
+  describe the final change briefly in natural language.
 - `delete-on-merge` asks that a branch be deleted once the change it carried has merged, and that the test be the
   content the branch holds rather than its commits. A squash merge leaves the branch's commits reachable from nothing
   else, so `git branch --merged` lists nothing and the safe check calls finished work unmerged.

@@ -16,6 +16,7 @@ One line per convention. Each name links to its full entry.
 | [`docs-with-change`](conventions/docs-with-change.md)         | Every change a reader can observe updates the documentation of the behaviour it touches, in the change that makes it.            | draft  |
 | [`agent-index`](conventions/agent-index.md)                   | A repository describes itself to agents in `context7.json`, and a project that publishes a site serves `llms.txt` from it.       | draft  |
 | [`delete-on-merge`](conventions/delete-on-merge.md)           | A branch is deleted once the change it carried has merged, and content decides whether it merged.                                | draft  |
+| [`signed-git`](conventions/signed-git.md)                     | Branches use PRs and git-worktrees; merges squash or retain signed rebased commits; every commit and tag is signed.              | draft  |
 
 Statuses: `draft` (proposed, not yet enforced by any tool), `active` (the maintainer's judgement that it is settled
 enough to rely on), `deprecated` (kept for existing adopters; the entry names its successor).
