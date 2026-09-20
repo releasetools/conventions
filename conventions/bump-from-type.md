@@ -1,7 +1,8 @@
 ---
 name: bump-from-type
 status: draft
-checked_by: []
+checked_by:
+  - https://github.com/releasetools/actions/tree/main/versions-guard
 superseded_by: null
 ---
 

@@ -14,5 +14,5 @@ One line per convention. Each name links to its full entry.
 | [`backport-tag`](conventions/backport-tag.md)                 | A release older than the newest one is published under a mutable tag naming its line, and never under the one that means newest. | draft  |
 | [`shipped-only`](conventions/shipped-only.md)                 | A change that fixes something no released version carried takes a type that observes nothing.                                    | draft  |
 
-Statuses: `draft` (proposed, not yet enforced by any tool), `active`, `deprecated` (kept for existing adopters; the
-entry names its successor).
+Statuses: `draft` (proposed, not yet enforced by any tool), `active` (the maintainer's judgement that it is settled
+enough to rely on), `deprecated` (kept for existing adopters; the entry names its successor).
