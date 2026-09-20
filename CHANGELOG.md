@@ -4,6 +4,9 @@ Dated entries, newest first.
 
 ## 2026-09-20
 
+- `node bin/adopt.mjs` reports `no manifest declares a version, so none is named` where it used to ask for one. A
+  project that carries no version omits the key, so the run no longer asks for what the format does not want, and it
+  still says where to name the file for a project that has a version somewhere the run could not read.
 - `manifest` is required of a project that carries a version and omitted by one that does not. A project with no version
   is not released: nothing bumps it, no tag names it, and a tool asked to release it says so and stops. Required of
   everything, the key forced a repository with nothing to name, such as this one, to either invent a version or write a
