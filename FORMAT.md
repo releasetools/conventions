@@ -186,11 +186,13 @@ case-sensitive: false
 6. `projects` is a list of groups. `path` is one directory or a list of them, each named: a project is opted in and
    never found, so a path MUST NOT be a pattern and a tool MUST refuse one. What a run checks is what this file says,
    rather than what the tree happens to hold when the run starts.
-7. `manifest` is one file or a list, and is REQUIRED: a project says where its version lives rather than having it
-   inferred from what a directory holds. Every file it names MUST declare the same version, since whichever one a client
-   reads is the one that decides whether it updates. `changelog` names one file, and a group without it owes no section.
-   Both are names inside the project's own directory, so `manifest: package.json` under `packages/api` is
-   `packages/api/package.json`, and `.claude-plugin/plugin.json` is one a directory below that.
+7. `manifest` is one file or a list. A project that carries a version MUST name the file it lives in rather than leave
+   it to be inferred from what a directory holds, and every file named MUST declare the same version, since whichever
+   one a client reads is the one that decides whether it updates. A project that carries no version omits the key and is
+   not released: nothing bumps it, no tag names it, and a tool asked to release it MUST say so and stop. `changelog`
+   names one file, and a group without it owes no section. Both are names inside the project's own directory, so
+   `manifest: package.json` under `packages/api` is `packages/api/package.json`, and `.claude-plugin/plugin.json` is one
+   a directory below that.
 8. A `path` that is not a directory MUST fail the run. A project that was declared and is not there is a mistake, not
    nothing to check.
 9. `bump` is the command that sets a project's version, with `{version}` where the version goes. Every ecosystem ships
