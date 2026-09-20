@@ -4,6 +4,9 @@ Dated entries, newest first.
 
 ## 2026-09-20
 
+- Every rule in `context7.json` fits the 255 characters its schema allows. Two ran over, so Context7 refused the whole
+  file and the repository indexed with none of them. The schema caps `projectTitle` at 100, `description` at 200 and
+  each rule at 255, and each `excludeFiles` entry is a bare filename.
 - `agent-index` says what each file is for. `context7.json` is what a repository commits, and `llms.txt` belongs to a
   site: it stands in for pages that bury their content in navigation and markup, which a repository of markdown does not
   do, so a project without a site owes none. Asked for as a pair, the second was a file with no consumer and no reader
