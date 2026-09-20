@@ -158,14 +158,15 @@ case-sensitive: false
 ```
 
 6. `projects` is a list of groups. `path` is one directory or a list of them, each named: a project is opted in and never found, so a path MUST NOT be a pattern and a tool MUST refuse one. What a run checks is what this file says, rather than what the tree happens to hold when the run starts.
-7. `manifest` is one file or a list, every one of which a project holds MUST declare the same version; `changelog` names one file, and a group without it owes no section. Both are names inside the project's own directory, so `manifest: package.json` under `packages/api` is `packages/api/package.json`.
+7. `manifest` is one file or a list, and is REQUIRED: a project says where its version lives rather than having it inferred from what a directory holds. Every file it names MUST declare the same version, since whichever one a client reads is the one that decides whether it updates. `changelog` names one file, and a group without it owes no section. Both are names inside the project's own directory, so `manifest: package.json` under `packages/api` is `packages/api/package.json`, and `.claude-plugin/plugin.json` is one a directory below that.
 8. A `path` that is not a directory MUST fail the run. A project that was declared and is not there is a mistake, not nothing to check.
 9. `bump` is the command that sets a project's version, with `{version}` where the version goes. Every ecosystem ships one, so no tool writes a manifest it was not told how to write. A project without it is set by hand, or by whatever knows that manifest's shape.
 10. A directory two groups both name belongs to the first.
 11. A file's edits do not count as its project changing when it is that project's manifest, its changelog, or matched by `ignore-files`, which defaults to `CHANGELOG.md`, `README.md` and `LICENSE` and is replaced rather than extended by what an adopter writes.
 12. An `ignore-files` pattern matches the end of a path on segment boundaries, and matches without regard to case unless `case-sensitive` is true.
 13. A `path`, a `manifest` or a `changelog` that is absolute, or that leaves the repository, MUST fail the run rather than be resolved.
-14. A repository with no `projects` is one project at its root.
+14. A version is read from a `.json` file's top-level `version`, a `.toml` file's `package`, `project`, `tool.poetry` or `workspace.package` table, a `.yaml` or `.yml` file's top-level `version:`, a `.properties` file's `version=` line, or from a file of any other name holding the version and nothing else.
+15. A tool that needs this file and does not find one MUST say so and stop, rather than assume a project. A guess is reported on as though somebody asked for it.
 
 And how a release is cut:
 
@@ -177,12 +178,12 @@ release:
   registry: https://registry.example/<name>/{version}
 ```
 
-15. `branch` is the branch a release is cut from. Absent, it is the repository's default branch.
-16. `checks` names the workflow that MUST be green on the commit a tag will name. Absent, nothing is waited for.
-17. `publish` names the workflow a tag starts. Absent, pushing the tag is the end of it.
-18. `registry` is a URL that MAY be checked before a release, with `{version}` where the version goes. Where it is checked it MUST answer 404 for a version nobody has released. Not every registry answers a question like that, and a repository whose does not leaves it out.
-19. A tool MUST NOT tag a commit whose `checks` workflow has not passed on that commit.
-20. The shape of the tag is the one in "Versions and tags", which this section does not redeclare.
+16. `branch` is the branch a release is cut from. Absent, it is the repository's default branch.
+17. `checks` names the workflow that MUST be green on the commit a tag will name. Absent, nothing is waited for.
+18. `publish` names the workflow a tag starts. Absent, pushing the tag is the end of it.
+19. `registry` is a URL that MAY be checked before a release, with `{version}` where the version goes. Where it is checked it MUST answer 404 for a version nobody has released. Not every registry answers a question like that, and a repository whose does not leaves it out.
+20. A tool MUST NOT tag a commit whose `checks` workflow has not passed on that commit.
+21. The shape of the tag is the one in "Versions and tags", which this section does not redeclare.
 
 ## Open questions
 
