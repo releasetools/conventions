@@ -27,6 +27,9 @@ A change's subject line follows [Conventional Commits 1.0.0](https://www.convent
    is what routes the change's release note to that project.
 3. A `!` before the `:` marks the change breaking.
 4. A tool MUST treat a type it does not recognise as observing nothing, and SHOULD say which type it did not recognise.
+5. A scope naming one project while the diff touches another is not an error. The scope decides where the note lands,
+   since it is what the author declared, and a tool SHOULD report the difference rather than fail the run. A change that
+   owes a note to two projects is two changes.
 
 Under a squash merge the pull request title becomes the subject, so the subject is declared once.
 
@@ -233,8 +236,3 @@ release:
     repository whose does not leaves it out.
 21. A tool MUST NOT tag a commit whose `checks` workflow has not passed on that commit.
 22. The shape of the tag is the one in "Versions and tags", which this section does not redeclare.
-
-## Open questions
-
-- Whether a scope naming one project and a diff touching another is an error, and which of the two decides where the
-  note lands.
