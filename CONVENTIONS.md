@@ -14,7 +14,7 @@ One line per convention. Each name links to its full entry.
 | [`backport-tag`](conventions/backport-tag.md)                 | A release older than the newest one is published under a mutable tag naming its line, and never under the one that means newest. | draft  |
 | [`shipped-only`](conventions/shipped-only.md)                 | A change that fixes something no released version carried takes a type that observes nothing.                                    | draft  |
 | [`docs-with-change`](conventions/docs-with-change.md)         | Every change a reader can observe updates the documentation of the behaviour it touches, in the change that makes it.            | draft  |
-| [`agent-index`](conventions/agent-index.md)                   | A repository describes itself to agents in the two files they look for, `context7.json` and `llms.txt`.                          | draft  |
+| [`agent-index`](conventions/agent-index.md)                   | A repository describes itself to agents in `context7.json`, and a project that publishes a site serves `llms.txt` from it.       | draft  |
 
 Statuses: `draft` (proposed, not yet enforced by any tool), `active` (the maintainer's judgement that it is settled
 enough to rely on), `deprecated` (kept for existing adopters; the entry names its successor).
