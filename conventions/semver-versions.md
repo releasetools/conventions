@@ -1,6 +1,6 @@
 ---
 name: semver-versions
-status: draft
+status: active
 checked_by:
   - https://github.com/releasetools/actions/tree/main/versions-guard
 superseded_by: null
