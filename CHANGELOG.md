@@ -7,6 +7,9 @@ Dated entries, newest first.
 - The format says which manifests it does not read. A version kept in XML or in code, in a `pom.xml`, a `.csproj` or a
   `.gemspec`, is out of scope, because reading one means an XML parser or an interpreter in every tool. A project of
   that shape declares a `VERSION` file its build reads.
+- `shipped-only` says what it means in a repository that has never tagged. There is no baseline, so the convention does
+  not apply: somebody is running the branch because that is the only thing there is to run, and a fix to it is a `fix`.
+  It starts mattering at the first tag.
 - The README is an index: what a convention is, how to adopt one, and where everything else lives. What a good release
   note reads like is in [`guides/release-notes.md`](guides/release-notes.md), and `guides/README.md` carries the guides'
   own index, their provenance, and the rule about serving files from a `.github` repository.
