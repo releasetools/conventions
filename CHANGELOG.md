@@ -2,6 +2,13 @@
 
 Dated entries, newest first.
 
+## 2026-09-20
+
+- A project is opted in, never found: `path` names a directory, and a pattern is refused. A declaration that resolved against the filesystem meant what a run checked depended on what the tree held at that moment, so two tools at two commits could check different things and a directory created today arrived as a failed check rather than as a decision. `ignore-files` keeps its patterns, since those match paths rather than discovering projects.
+- `manifest` is required, and a project names every file that carries its version: `.claude-plugin/plugin.json` and `.codex-plugin/plugin.json` are one project keeping it in two places, and both have to say the same thing. Which files a version can be read out of is written down rather than guessed at.
+- A tool that needs the file and does not find one says so and stops. A guessed project is reported on as though somebody had asked for it.
+- The format says where `manifest` and `changelog` are found: inside each project's own directory. A `path` that is not a directory now fails the run, so an entry left behind by a rename is heard about.
+
 ## 2026-09-19
 
 - `declared-plugins` joins the drafts: a repository names the agent plugins its release workflow expects, in the place the agent already reads. `node bin/adopt.mjs` writes a starter `.releasetools.yaml` and prints the commands that declare them: `claude plugin install <name>@<marketplace> --scope project` writes the repository's own configuration, and `codex plugin add` does the same for Codex. The clients write their own settings; a script editing them by hand gets the merge wrong on the day it matters.
