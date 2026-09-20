@@ -8,20 +8,22 @@ enforce the conventions they know about.
 
 ## Adopting
 
-Add one line to your README or CONTRIBUTING:
-
-> This repo follows the [releasetools conventions](https://github.com/releasetools/conventions).
-
-Adoption is opt-out: that line means all of them. To skip some, name them:
-
-> This repo follows the [releasetools conventions](https://github.com/releasetools/conventions), except `note-or-none`.
-
-Tools read the same declaration from `.releasetools.yaml` at the repository root, where a name under
-`conventions.except` turns off that convention's checks. [FORMAT.md](FORMAT.md#configuration) gives the file its shape.
+A repository adopts the conventions by declaring `.releasetools.yaml` at its root and running the
+[releasetools actions](https://github.com/releasetools/actions) that read it. That file is what a tool obeys: a name
+under `conventions.except` turns off that convention's checks, and [FORMAT.md](FORMAT.md#configuration) gives the file
+its shape.
 
 `node bin/adopt.mjs` writes a starter `.releasetools.yaml` and prints the commands that declare the agent plugins the
 release workflow expects, which is what [`declared-plugins`](conventions/declared-plugins.md) asks for. Pass
 `--plugin <name>@<marketplace>` for anything beyond the release-notes plugin.
+
+A line in a README or CONTRIBUTING is advisory. It tells a reader what to expect and changes nothing a tool does:
+
+> This repo follows the [releasetools conventions](https://github.com/releasetools/conventions).
+
+To say which ones you skip, name them there too, and in `conventions.except` where a tool will see it:
+
+> This repo follows the [releasetools conventions](https://github.com/releasetools/conventions), except `note-or-none`.
 
 ## What is here
 
