@@ -1,0 +1,14 @@
+{
+  "$schema": "https://context7.com/schema/context7.json",
+  "projectTitle": "releasetools conventions",
+  "description": "Named, individually adoptable practices for writing release notes, and the machine-readable format the releasetools tools agree on.",
+  "excludeFiles": ["CHANGELOG.md"],
+  "rules": [
+    "Every change declares a release note in a `release-note` block in its description, or the single word NONE. The test is whether a person running the software can observe it: a different result, a different exit code, a new flag, a changed message.",
+    "A change's subject follows Conventional Commits, and the type decides both the version increment and the changelog section: `feat` is a minor under Added, `fix` a patch under Fixed, and `refactor`, `test`, `docs`, `build`, `ci`, `chore` and `style` observe nothing.",
+    "A breaking change carries a `BREAKING CHANGE:` footer saying what to do instead, and generated release notes lead with it.",
+    "Every change a reader can observe writes its own changelog entry, in the change that makes it, rather than leaving it to be reconstructed at release time.",
+    "A version is a semantic version and carries no leading `v`. The tag carries one.",
+    "A repository switches a convention off by naming it under `conventions.except` in `.releasetools.yaml` at its root, which is the file every releasetools tool reads."
+  ]
+}

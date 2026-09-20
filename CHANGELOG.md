@@ -4,6 +4,10 @@ Dated entries, newest first.
 
 ## 2026-09-20
 
+- `context7.json` describes this repository to agents: what it is, what to exclude, and the rules an agent should repeat
+  about declaring a note, typing a change, footnoting a break and writing the entry. It excludes `CHANGELOG.md`, so a
+  question about a convention is answered by the convention rather than by a history of edits to it. There is no
+  `llms.txt`: that file stands in for a website, and this repository is markdown already, indexed by its own README.
 - `docs-with-change` asks that a change a reader can observe updates the documentation of the behaviour it touches, in
   the change that makes it. Documentation left for a follow-up is documentation nobody writes, and the surface that went
   wrong is rarely the one its author would have thought to open.
