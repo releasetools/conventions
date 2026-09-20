@@ -79,11 +79,31 @@ Pull request numbers, issue numbers, branch names, commit hashes, author handles
 
 The reason a note is declared on the change rather than assembled at release is that the person who made the change is the only one who knows why, and they know it now. A week later it is a diff, and a diff cannot say which alternative was weighed and dropped.
 
+## Repository guides
+
+Short guides for running a repository, written to be linked from any organisation's `CONTRIBUTING.md` or `SECURITY.md` rather than copied into it. They are prose: nothing checks them, they carry no stable names to depend on, and they cannot appear in an `except` list.
+
+- [pull-requests.md](guides/pull-requests.md) — shaping a change so it can be reviewed
+- [reviewing.md](guides/reviewing.md) — giving and receiving review
+- [issues.md](guides/issues.md) — filing, answering and closing
+- [ai-contributions.md](guides/ai-contributions.md) — disclosure, and who is responsible
+- [security-reports.md](guides/security-reports.md) — what counts as a vulnerability
+- [docs-style.md](guides/docs-style.md) — markdown mechanics
+
+They are cut down from the [Kubernetes contributor guide](https://github.com/kubernetes/community/tree/main/contributors/guide), which coordinates thousands of maintainers. None of that machinery is here: no OWNERS files, no SIGs, no CLA, no triage rotation, no timers that close an issue on their own.
+
+### Reaching a repository
+
+GitHub serves `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, `SECURITY.md`, `SUPPORT.md`, and issue and pull request templates from a public repository named `.github`, to every repository of the same owner that has no file of its own. The owner can be an organisation or a personal account; the rule is the same for both. A file in the repository itself wins over the default.
+
+The profile README is the part that does differ by account type. An organisation puts it in `.github` at `profile/README.md`. A personal account puts it in a repository named after the username, as `README.md` in its root.
+
 ## Reading
 
 - [CONVENTIONS.md](CONVENTIONS.md) — the index, one line per convention
 - [conventions/](conventions/) — one file per convention; each file's URL is stable
 - [FORMAT.md](FORMAT.md) — the machine-readable part, in normative language
+- [guides/](guides/) — prose guides for running a repository
 - [CHANGELOG.md](CHANGELOG.md) — dated changes to this repo
 
 ## Contributing a convention

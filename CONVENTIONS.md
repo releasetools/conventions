@@ -12,5 +12,6 @@ One line per convention. Each name links to its full entry.
 | [`changelog-per-change`](conventions/changelog-per-change.md) | Every change a reader can observe writes its own changelog entry, in the change that makes it. | draft |
 | [`declared-plugins`](conventions/declared-plugins.md) | A repository names the agent plugins its release workflow expects, in the place the agent already reads. | draft |
 | [`backport-tag`](conventions/backport-tag.md) | A release older than the newest one is published under a mutable tag naming its line, and never under the one that means newest. | draft |
+| [`shipped-only`](conventions/shipped-only.md) | A change that fixes something no released version carried takes a type that observes nothing. | draft |
 
 Statuses: `draft` (proposed, not yet enforced by any tool), `active`, `deprecated` (kept for existing adopters; the entry names its successor).
