@@ -5,8 +5,9 @@
   "license": "CC-BY-4.0",
   "type": "module",
   "scripts": {
-    "lint": "prettier --check .",
-    "format": "prettier --write ."
+    "lint": "prettier --check . && npm run check-links",
+    "format": "prettier --write .",
+    "check-links": "node scripts/check-links.mjs"
   },
   "devDependencies": {
     "prettier": "3.9.8"
