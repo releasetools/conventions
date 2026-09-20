@@ -133,7 +133,8 @@ function writeConfig(root) {
     report.push(`  skipped ${name}, which declares no version`);
   }
   if (found.length === 0) {
-    report.push("  name the file that carries this project's version under manifest:");
+    report.push('  no manifest declares a version, so none is named');
+    report.push('  a project that has one names the file under manifest:');
   }
   const versions = [...new Set(found.map(({ version }) => version))];
   if (versions.length > 1) {
