@@ -236,6 +236,5 @@ release:
 
 ## Open questions
 
-- Where a project declares its version when its ecosystem has no manifest that carries one.
 - Whether a scope naming one project and a diff touching another is an error, and which of the two decides where the
   note lands.
