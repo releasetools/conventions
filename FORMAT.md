@@ -68,6 +68,7 @@ batch=true query parameter.
 4. Text outside the block MUST NOT be treated as a release note.
 5. Leading and trailing whitespace, and leading and trailing empty lines, SHOULD be ignored.
 6. A change needing notes under two different sections is two changes.
+7. The block and the change's changelog entry are separate declarations and MAY differ. The block is what one change claims about itself, and a guard reads it there. What a release publishes comes from the changelog, where an entry can be rewritten as the version takes shape without reopening a merged change.
 
 A change whose type observes nothing SHOULD declare `NONE` rather than omit the block, so that a missing block is always a mistake and never a judgement.
 
@@ -116,9 +117,10 @@ A project's changelog follows [Keep a Changelog 1.1.0](https://keepachangelog.co
 ## Release notes
 
 1. Generated release notes MUST begin with the changelog section for the version being released.
-2. They MAY be followed by generated material: contributors, merged changes, a comparison link.
-3. A release whose section is empty MUST publish a configured default rather than nothing.
-4. A release whose section is missing MUST fail rather than publish empty notes.
+2. They MUST render that section's entries as a flat list, dropping the `###` headings the changelog groups them under. The changelog groups because it holds every version; a release note holds one.
+3. They MAY be followed by generated material: contributors, merged changes, a comparison link.
+4. A release whose section is empty MUST publish a configured default rather than nothing.
+5. A release whose section is missing MUST fail rather than publish empty notes.
 
 ## Configuration
 
