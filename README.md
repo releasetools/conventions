@@ -32,4 +32,7 @@ To say which ones you skip, name them there too, and in `conventions.except` whe
 - [FORMAT.md](FORMAT.md) — what releasetools tools have to agree on exactly, the one file in normative language
 - [guides/](guides/) — prose nothing checks: [writing a release note](guides/release-notes.md), running a repository
 - [AGENTS.md](AGENTS.md) — how to add a convention
+- [templates/](templates/) — the file a new convention starts from
+- [bin/](bin/) — `adopt.mjs`, which writes a starter `.releasetools.yaml`
+- [scripts/](scripts/) — this repository's own checks, which `npm run lint` runs
 - [CHANGELOG.md](CHANGELOG.md) — dated changes to this repository
