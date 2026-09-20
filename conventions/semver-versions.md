@@ -1,7 +1,8 @@
 ---
 name: semver-versions
 status: draft
-checked_by: []
+checked_by:
+  - https://github.com/releasetools/actions/tree/main/versions-guard
 superseded_by: null
 ---
 
@@ -57,3 +58,7 @@ the same version.
 
 Where projects version independently, each carries its own and the tag names both the project and the version. The shape
 of that tag is in [FORMAT.md](../FORMAT.md).
+
+`versions-guard` checks the first half. It refuses a manifest whose version it cannot parse, and refuses two manifests
+of one project that declare different versions. The second half, that the tag names what the release declares, is
+checked by nothing: the action reads a tag only to find the baseline it compares against.
