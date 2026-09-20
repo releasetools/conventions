@@ -4,6 +4,9 @@ Dated entries, newest first.
 
 ## 2026-09-20
 
+- `semver-versions` names `versions-guard`, which refuses a manifest version it cannot parse and two manifests of one
+  project that disagree. That is the first half of the convention. The second half, that the tag names what the release
+  declares, is checked by nothing, and the entry says so.
 - A changelog for a project that carries no version dates its sections, `## <date>`, and holds one list under each
   rather than the groups a release is shaped into. A version became optional when a project without one stopped being
   released, and nothing said what its changelog looked like. This repository's own is the example.
