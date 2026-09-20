@@ -4,6 +4,12 @@ Dated entries, newest first.
 
 ## 2026-09-20
 
+- `node bin/adopt.mjs` names every manifest that declares a version, reading each the way FORMAT.md says that kind of
+  file carries one: `package.json`, `composer.json`, `deno.json`, `pyproject.toml`, `Cargo.toml`, `pubspec.yaml`,
+  `Chart.yaml`, `gradle.properties`, a plugin's `plugin.json`, `VERSION` and `version.txt`. A candidate that declares
+  none is skipped and named, two that disagree are reported, and a repository with none is told to name the file by
+  hand. It took the first candidate that existed before, so a private tooling `package.json` was written in as the file
+  carrying a version it does not have.
 - The format says which manifests it does not read. A version kept in XML or in code, in a `pom.xml`, a `.csproj` or a
   `.gemspec`, is out of scope, because reading one means an XML parser or an interpreter in every tool. A project of
   that shape declares a `VERSION` file its build reads.
