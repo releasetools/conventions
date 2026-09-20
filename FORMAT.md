@@ -207,7 +207,10 @@ case-sensitive: false
 14. A version is read from a `.json` file's top-level `version`, a `.toml` file's `package`, `project`, `tool.poetry` or
     `workspace.package` table, a `.yaml` or `.yml` file's top-level `version:`, a `.properties` file's `version=` line,
     or from a file of any other name holding the version and nothing else.
-15. A tool that needs this file and does not find one MUST say so and stop, rather than assume a project. A guess is
+15. A file keeping its version in XML or in code is none of those kinds. `pom.xml`, a `.csproj` and a `.gemspec` MUST
+    NOT be read, since reading them means an XML parser or an interpreter in every tool. A project of that shape
+    declares a `VERSION` file its build reads, which is a file holding the version and nothing else.
+16. A tool that needs this file and does not find one MUST say so and stop, rather than assume a project. A guess is
     reported on as though somebody asked for it.
 
 And how a release is cut:
@@ -220,14 +223,14 @@ release:
   registry: https://registry.example/<name>/{version}
 ```
 
-16. `branch` is the branch a release is cut from. Absent, it is the repository's default branch.
-17. `checks` names the workflow that MUST be green on the commit a tag will name. Absent, nothing is waited for.
-18. `publish` names the workflow a tag starts. Absent, pushing the tag is the end of it.
-19. `registry` is a URL that MAY be checked before a release, with `{version}` where the version goes. Where it is
+17. `branch` is the branch a release is cut from. Absent, it is the repository's default branch.
+18. `checks` names the workflow that MUST be green on the commit a tag will name. Absent, nothing is waited for.
+19. `publish` names the workflow a tag starts. Absent, pushing the tag is the end of it.
+20. `registry` is a URL that MAY be checked before a release, with `{version}` where the version goes. Where it is
     checked it MUST answer 404 for a version nobody has released. Not every registry answers a question like that, and a
     repository whose does not leaves it out.
-20. A tool MUST NOT tag a commit whose `checks` workflow has not passed on that commit.
-21. The shape of the tag is the one in "Versions and tags", which this section does not redeclare.
+21. A tool MUST NOT tag a commit whose `checks` workflow has not passed on that commit.
+22. The shape of the tag is the one in "Versions and tags", which this section does not redeclare.
 
 ## Open questions
 
