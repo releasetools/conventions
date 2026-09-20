@@ -4,6 +4,11 @@ Dated entries, newest first.
 
 ## 2026-09-20
 
+- `delete-on-merge` asks for the branch's content by patch id rather than by text: replay its tree as one commit on the
+  merge base and ask `git cherry` whether that patch is upstream. The textual check it replaces,
+  `git apply --reverse --check`, fails on a default branch that moved on, which is every branch worth asking about. A
+  fourth question joins the three: a commit that never left the clone leaves the branch unfinished, whatever the merged
+  pull request says.
 - `signed-git` describes a workflow using branches and pull requests, signed commits and tags, and worktrees managed
   with `git-worktrees`. Squash merges are the default; rebase merges retain signed commits. The convention explains
   GitHub's squash signatures and why its unsigned rebase merges do not qualify. Each new branch attempts to fetch the

@@ -53,17 +53,31 @@ git branch --merged main
 
 ## Notes
 
-Three questions settle one branch, in the order that costs least:
+Three questions settle whether the change landed, in the order that costs least:
 
 1. What the forge says. `gh pr list --state all --head <branch>` answers with the change itself, and a merged pull
    request is the end of it.
 2. Whether the commits are in the default branch, for a merge that kept them:
    `git merge-base --is-ancestor <branch> origin/main`. True means `git branch -d` will accept the branch.
-3. Whether the content is in the default branch, for a merge that did not. In a clean worktree on that branch,
-   `git diff origin/main...<branch> | git apply --reverse --check` succeeds when every line the branch added is already
-   there.
+3. Whether the content is in the default branch, for a merge that did not. Replay the branch's tree as one commit on the
+   merge base, and ask whether that patch is upstream:
 
-A branch that none of the three explains holds work that never merged, and that is the list worth reading.
+   ```shell
+   base=$(git merge-base origin/main <branch>)
+   synthetic=$(git commit-tree "$(git rev-parse '<branch>^{tree}')" -p "$base" -m _)
+   git cherry origin/main "$synthetic"
+   ```
+
+   `-` means the squash merge already carried it, `+` means it did not. The comparison is by patch id rather than by
+   text, so it survives a default branch that moved on afterwards. The synthetic commit is unreferenced and the next
+   `git gc` collects it.
+
+A fourth question asks whether the branch holds anything besides that change. A merged pull request speaks for the
+commits that were pushed and for nothing else, so a commit that never left the clone leaves the branch unfinished
+whatever the forge says: `git rev-list --count @{upstream}..<branch>` counts them, or
+`git rev-list --count <branch> --not --remotes` where the branch has no upstream.
+
+A branch that none of this explains holds work that never merged, and that is the list worth reading.
 
 Deleting the branch does not delete the change. A merged pull request keeps its commits and its diff, and a forge that
 offers to restore the branch restores it from there.
