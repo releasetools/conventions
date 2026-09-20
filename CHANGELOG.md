@@ -4,6 +4,9 @@ Dated entries, newest first.
 
 ## 2026-09-20
 
+- `bump-from-type` and `changelog-per-change` are active. Each is settled enough to rely on and each names the action
+  that checks it, so an adopter reading either one is reading a practice a tool already enforces rather than a proposal.
+  The other seven stay draft.
 - `checked_by` names what checks a convention, each entry an `https://` URL to the tool itself. `bump-from-type` names
   `versions-guard`, which fails a pull request whose version did not move far enough for the types in its range, and
   `changelog-per-change` names `changelog-guard`, which fails one that changed a project and wrote nothing down.
