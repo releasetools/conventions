@@ -15,3 +15,6 @@ Tables are for data with two dimensions. One dimension is a list.
 Wrap prose near 80 characters. Tables and links are exempt.
 
 Do not repeat what another file says. Link to it.
+
+Keep a fact close to where it is needed. A rule about a directory belongs in
+that directory, not in an index of it or a changelog entry about it.

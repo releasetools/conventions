@@ -53,4 +53,4 @@ A project that keeps no changelog owes no entry, and a repository declares which
 
 A change that observes nothing writes nothing here, which is the same test the [`release-note` block](note-or-none.md) applies. The block is what one change declares about itself; the changelog is where the project's changes accumulate.
 
-The shape of a section, its heading and its ordering are in [FORMAT.md](../FORMAT.md). What a good entry says is in the [guide](../README.md#guide).
+The shape of a section, its heading and its ordering are in [FORMAT.md](../FORMAT.md). What a good entry says is in the [release notes guide](../guides/release-notes.md).
