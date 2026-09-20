@@ -47,3 +47,6 @@ the ordinary one.
 
 A fix to a released pre-release is not covered here. Somebody was running `2.4.0-rc.1`, so the bug shipped and the fix
 is a `fix`.
+
+A repository with no tag has no baseline, and this does not apply to it. Somebody is running the branch, because that is
+the only thing there is to run, so a fix to it is a `fix`. The convention starts mattering at the first tag.
