@@ -4,6 +4,9 @@ Dated entries, newest first.
 
 ## 2026-09-20
 
+- `bin/adopt.mjs` is gone, and `npx @releasetools/config adopt` replaces it. Running the old one meant cloning the
+  repository adoption is about, and it carried its own copy of the manifest reader that `@releasetools/config` publishes
+  for the guards that read what it wrote.
 - `semver-versions` is active. A released version being a semantic version, and naming the version its tag names, is
   settled enough to rely on, and `versions-guard` checks the first half of it. Three conventions are active and six are
   drafts.
