@@ -226,6 +226,7 @@ And how a release is cut:
 ```yaml
 release:
   branch: main
+  merge: squash
   checks: tests.yml
   publish: publish.yml
   registry: https://registry.example/<name>/{version}
@@ -237,5 +238,7 @@ release:
 20. `registry` is a URL that MAY be checked before a release, with `{version}` where the version goes. Where it is
     checked it MUST answer 404 for a version nobody has released. Not every registry answers a question like that, and a
     repository whose does not leaves it out.
-21. A tool MUST NOT tag a commit whose `checks` workflow has not passed on that commit.
-22. The shape of the tag is the one in "Versions and tags", which this section does not redeclare.
+21. `merge` is how a release's pull request lands: `squash`, `rebase` or `merge`. Absent, it is `squash`, which is the
+    only one a branch requiring both signed commits and linear history accepts.
+22. A tool MUST NOT tag a commit whose `checks` workflow has not passed on that commit.
+23. The shape of the tag is the one in "Versions and tags", which this section does not redeclare.
