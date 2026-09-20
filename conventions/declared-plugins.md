@@ -51,8 +51,7 @@ Use the release notes plugin.
 
 ## Notes
 
-`node bin/adopt.mjs` in this repository writes a starter `.releasetools.yaml` and prints the commands that declare the
-plugins:
+The commands that declare them:
 
 ```shell
 claude plugin marketplace add releasetools/agent-plugins --scope project

@@ -13,9 +13,10 @@ A repository adopts the conventions by declaring `.releasetools.yaml` at its roo
 under `conventions.except` turns off that convention's checks, and [FORMAT.md](FORMAT.md#configuration) gives the file
 its shape.
 
-`node bin/adopt.mjs` writes a starter `.releasetools.yaml` and prints the commands that declare the agent plugins the
-release workflow expects, which is what [`declared-plugins`](conventions/declared-plugins.md) asks for. Pass
-`--plugin <name>@<marketplace>` for anything beyond the release-notes plugin.
+`npx @releasetools/config adopt` writes a starter `.releasetools.yaml` from the manifests and changelog a repository
+holds, and prints the commands that declare the agent plugins, which is what
+[`declared-plugins`](conventions/declared-plugins.md) asks for. Pass `--dir` for another checkout, and repeat `--plugin`
+to choose which plugins it names.
 
 A line in a README or CONTRIBUTING is advisory. It tells a reader what to expect and changes nothing a tool does:
 
@@ -33,6 +34,5 @@ To say which ones you skip, name them there too, and in `conventions.except` whe
 - [guides/](guides/) — prose nothing checks: [writing a release note](guides/release-notes.md), running a repository
 - [AGENTS.md](AGENTS.md) — how to add a convention
 - [templates/](templates/) — the file a new convention starts from
-- [bin/](bin/) — `adopt.mjs`, which writes a starter `.releasetools.yaml`
 - [scripts/](scripts/) — this repository's own checks, which `npm run lint` runs
 - [CHANGELOG.md](CHANGELOG.md) — dated changes to this repository
