@@ -15,6 +15,7 @@ One line per convention. Each name links to its full entry.
 | [`shipped-only`](conventions/shipped-only.md)                 | A change that fixes something no released version carried takes a type that observes nothing.                                    | draft  |
 | [`docs-with-change`](conventions/docs-with-change.md)         | Every change a reader can observe updates the documentation of the behaviour it touches, in the change that makes it.            | draft  |
 | [`agent-index`](conventions/agent-index.md)                   | A repository describes itself to agents in `context7.json`, and a project that publishes a site serves `llms.txt` from it.       | draft  |
+| [`delete-on-merge`](conventions/delete-on-merge.md)           | A branch is deleted once the change it carried has merged, and content decides whether it merged.                                | draft  |
 
 Statuses: `draft` (proposed, not yet enforced by any tool), `active` (the maintainer's judgement that it is settled
 enough to rely on), `deprecated` (kept for existing adopters; the entry names its successor).

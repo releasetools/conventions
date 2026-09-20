@@ -4,6 +4,9 @@ Dated entries, newest first.
 
 ## 2026-09-20
 
+- `delete-on-merge` asks that a branch be deleted once the change it carried has merged, and that the test be the
+  content the branch holds rather than its commits. A squash merge leaves the branch's commits reachable from nothing
+  else, so `git branch --merged` lists nothing and the safe check calls finished work unmerged.
 - Every rule in `context7.json` fits the 255 characters its schema allows. Two ran over, so Context7 refused the whole
   file and the repository indexed with none of them. The schema caps `projectTitle` at 100, `description` at 200 and
   each rule at 255, and each `excludeFiles` entry is a bare filename.
