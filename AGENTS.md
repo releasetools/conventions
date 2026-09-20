@@ -23,5 +23,6 @@ names the user-facing change", not "a release note MUST name the user-facing cha
 The markdown mechanics, down to the rule against repeating what another file says, are in
 [guides/docs-style.md](guides/docs-style.md).
 
-Every change adds its own entry to [CHANGELOG.md](CHANGELOG.md), under today's date, which is what
-[`changelog-per-change`](conventions/changelog-per-change.md) asks of a repository that adopts it.
+Every change a reader can observe adds its own entry to [CHANGELOG.md](CHANGELOG.md), under today's date, which is what
+[`changelog-per-change`](conventions/changelog-per-change.md) asks of a repository that adopts it. One that observes
+nothing writes no entry, and declares `NONE` in its description.
