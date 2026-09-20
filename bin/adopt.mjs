@@ -23,7 +23,23 @@ const MARKETPLACES = {
 const DEFAULT_PLUGINS = ['release-notes@release-tools'];
 
 /** The manifests a starter declaration can name, in the order they are tried. */
-const MANIFESTS = ['package.json', 'pyproject.toml', 'Cargo.toml', 'VERSION'];
+const MANIFESTS = [
+  'package.json',
+  'composer.json',
+  'deno.json',
+  'pyproject.toml',
+  'Cargo.toml',
+  'pubspec.yaml',
+  'Chart.yaml',
+  'gradle.properties',
+  '.claude-plugin/plugin.json',
+  '.codex-plugin/plugin.json',
+  'VERSION',
+  'version.txt',
+];
+
+/** The TOML tables FORMAT.md reads a version out of. */
+const TOML_TABLES = ['package', 'project', 'tool.poetry', 'workspace.package'];
 
 const HEADER = `# How this repository releases, read by every releasetools tool.
 #
@@ -80,24 +96,30 @@ function writeConfig(root) {
     return '.releasetools.yaml is already there';
   }
 
+  const found = [];
   const skipped = [];
-  let manifest = null;
   for (const name of MANIFESTS) {
     const candidate = path.join(root, name);
     if (!fs.existsSync(candidate)) {
       continue;
     }
-    if (versionIn(candidate)) {
-      manifest = name;
-      break;
+    const version = versionIn(candidate);
+    if (version) {
+      found.push({ name, version });
+    } else {
+      skipped.push(name);
     }
-    skipped.push(name);
   }
 
   const changelog = fs.existsSync(path.join(root, 'CHANGELOG.md')) ? 'CHANGELOG.md' : null;
   const lines = [HEADER, 'projects:', '  - path: ./'];
-  if (manifest) {
-    lines.push(`    manifest: ${manifest}`);
+  if (found.length === 1) {
+    lines.push(`    manifest: ${found[0].name}`);
+  } else if (found.length > 1) {
+    lines.push('    manifest:');
+    for (const { name } of found) {
+      lines.push(`      - ${name}`);
+    }
   }
   if (changelog) {
     lines.push(`    changelog: ${changelog}`);
@@ -109,8 +131,13 @@ function writeConfig(root) {
   for (const name of skipped) {
     report.push(`  skipped ${name}, which declares no version`);
   }
-  if (!manifest) {
+  if (found.length === 0) {
     report.push("  name the file that carries this project's version under manifest:");
+  }
+  const versions = [...new Set(found.map(({ version }) => version))];
+  if (versions.length > 1) {
+    report.push(`  they disagree: ${found.map(({ name, version }) => `${name} says ${version}`).join(', ')}`);
+    report.push('  every manifest one project names has to declare the same version');
   }
   return report.join('\n');
 }
@@ -132,9 +159,40 @@ function versionIn(file) {
     }
   }
   if (file.endsWith('.toml')) {
-    return text.match(/^\s*version\s*=\s*['"]([^'"]+)['"]/m)?.[1] ?? null;
+    return tomlVersion(text);
   }
-  return text.trim() || null;
+  if (file.endsWith('.yaml') || file.endsWith('.yml')) {
+    return unquote(text.match(/^version:\s*(\S+)/m)?.[1]);
+  }
+  if (file.endsWith('.properties')) {
+    return unquote(text.match(/^version\s*=\s*(\S+)/m)?.[1]);
+  }
+  const only = text.trim();
+  return only && !only.includes('\n') ? only : null;
+}
+
+/** The version under one of the tables FORMAT.md names, or null. */
+function tomlVersion(text) {
+  let table = null;
+  for (const line of text.split('\n')) {
+    const header = line.match(/^\s*\[([^\]]+)\]/);
+    if (header) {
+      table = header[1].trim();
+      continue;
+    }
+    if (!TOML_TABLES.includes(table)) {
+      continue;
+    }
+    const value = line.match(/^\s*version\s*=\s*['"]([^'"]+)['"]/);
+    if (value) {
+      return value[1];
+    }
+  }
+  return null;
+}
+
+function unquote(value) {
+  return value ? value.replace(/^['"]|['"]$/g, '') : null;
 }
 
 /**
