@@ -4,6 +4,9 @@ Dated entries, newest first.
 
 ## 2026-09-20
 
+- `node bin/adopt.mjs` outside a git repository stops with `adopt: <path> is not in a git repository` and exit 1. It
+  used to print git's own `fatal:` line, then write `.releasetools.yaml` into whatever directory it had been pointed at,
+  where no tool reading the file would ever find it.
 - `node bin/adopt.mjs` names every manifest that declares a version, reading each the way FORMAT.md says that kind of
   file carries one: `package.json`, `composer.json`, `deno.json`, `pyproject.toml`, `Cargo.toml`, `pubspec.yaml`,
   `Chart.yaml`, `gradle.properties`, a plugin's `plugin.json`, `VERSION` and `version.txt`. A candidate that declares
