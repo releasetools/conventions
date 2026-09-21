@@ -2,6 +2,19 @@
 
 Dated entries, newest first.
 
+## 2026-09-22
+
+- `bump-from-type` increments the minor for a `feat` and for a breaking change alike, above `1.0.0` and below it, and
+  the patch for everything else. `0.y.z` stops being a special case. A caret range now resolves across a break, which
+  Semantic Versioning does not promise, and the rule says so where it is written. What it used to say, that everything
+  but a breaking change increments the patch under `0.y.z`, its own example already contradicted: one `feat` in a range
+  takes `0.2.0` to `0.3.0` there.
+- Nothing derives the major. A tool computes the minor or the patch from the types in a range and stops, and a release
+  incrementing the major does it because somebody was asked and said so. That is the one question about size worth
+  asking, and a commit subject cannot answer it.
+- A tag naming a release is `v<version>` and carries no prefix. `<project>/v<version>` is gone: no repository in the org
+  ever produced one, every release workflow there triggers on `v*`, and the format never said what filled `<project>`.
+
 ## 2026-09-21
 
 - `release.merge` says how a release's pull request lands: `squash`, `rebase` or `merge`, and `squash` where the file

@@ -56,8 +56,12 @@ A pre-release sorts before the release it names, which is what `1.0.0-rc.1 < 1.0
 published as the thing it is a candidate for. Build metadata sorts nowhere: two versions differing only after a `+` are
 the same version.
 
-Where projects version independently, each carries its own and the tag names both the project and the version. The shape
-of that tag is in [FORMAT.md](../FORMAT.md).
+Where projects version independently, each carries its own version and no tag names it: a tag is `v<version>` and
+carries no prefix, so it names the repository. The shape is in [FORMAT.md](../FORMAT.md).
+
+Which part a change increments is [`bump-from-type`](bump-from-type.md), and it departs from Semantic Versioning in one
+place: a breaking change increments the minor rather than the major, so a caret range resolves across one. The version
+is still semantic in shape and still compared by that specification's rules, which is what this convention is about.
 
 `versions-guard` checks the first half. It refuses a manifest whose version it cannot parse, and refuses two manifests
 of one project that declare different versions. The second half, that the tag names what the release declares, is
