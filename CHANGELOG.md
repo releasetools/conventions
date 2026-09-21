@@ -2,6 +2,12 @@
 
 Dated entries, newest first.
 
+## 2026-09-21
+
+- `release.merge` says how a release's pull request lands: `squash`, `rebase` or `merge`, and `squash` where the file
+  leaves it out. A branch that requires signed commits and linear history takes no other, so a tool choosing for itself
+  was choosing against [`signed-git`](conventions/signed-git.md) on every repository that had not said otherwise.
+
 ## 2026-09-20
 
 - `delete-on-merge` asks for the branch's content by patch id rather than by text: replay its tree as one commit on the
