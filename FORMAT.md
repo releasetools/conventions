@@ -91,12 +91,13 @@ a mistake and never a judgement.
 2. A version MUST NOT carry a leading `v`. A tag MUST carry one.
 3. The version a project's manifest declares, the version its changelog's newest section names, and the version its tag
    names MUST be the same.
-4. A repository releasing as one thing tags `v<version>`.
-5. A repository whose projects version independently tags `<project>/v<version>`.
-6. An exact version tag MUST NOT be moved once published.
-7. A floating major tag, `v<major>` or `<project>/v<major>`, MAY be moved, and MUST point at the newest release on that
-   major line. A backport MUST NOT move it backwards.
-8. A published release is not withdrawn. A release found to be wrong is superseded by another, and the superseding
+4. A tag naming a release is `v<version>`, and carries no other prefix. A repository whose projects version
+   independently has no shape of its own: it tags what it releases as one thing, or it tags nothing and its projects are
+   released by what reads their manifests.
+5. An exact version tag MUST NOT be moved once published.
+6. A floating major tag, `v<major>`, MAY be moved, and MUST point at the newest release on that major line. A backport
+   MUST NOT move it backwards.
+7. A published release is not withdrawn. A release found to be wrong is superseded by another, and the superseding
    version's section says so.
 
 ## Distribution tags
