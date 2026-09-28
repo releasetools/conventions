@@ -6,7 +6,8 @@ Dated entries, newest first.
 
 - `reserved-main-worktree` gives each concurrent writer a linked worktree and branch. The main checkout stays clean on
   the current default branch for synchronization and publication of verified merged releases. Release preparation uses a
-  linked worktree and pull request; one operator owns the main checkout through release verification and publication.
+  linked worktree based on the configured release branch and a pull request; one operator owns the main checkout through
+  release verification and publication. Release artifacts are built from the verified commit.
 
 ## 2026-09-22
 

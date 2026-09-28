@@ -36,11 +36,12 @@ Bad, two agents share a linked worktree because they expect to edit different fi
 
 The main worktree is the primary checkout reported by `git worktree list`, regardless of its directory name. The remote
 declares the default branch; its name is not assumed to be `main`. A task already in its own linked worktree continues
-there. A new task gets a separate branch from the fetched default tip.
+there. A new development task gets a separate branch from the fetched default tip. Release preparation branches from the
+fetched tip of the configured release branch, which defaults to the repository's default branch.
 
 Development commands, including dependency installation and tests, run in the task's linked worktree. Release
 preparation follows the same rule. The main checkout is reserved for synchronization and commands that verify or publish
-the merged release. Build output produced during publication belongs outside the main worktree.
+the merged release. Release artifacts are built from the verified release commit, with output outside the main worktree.
 
 At task start and after merges, a fetch and fast-forward bring the clean main checkout to the remote default tip.
 Uncommitted files or local commits that prevent equality with that tip stop synchronization and are reported. A failed
