@@ -2,6 +2,13 @@
 
 Dated entries, newest first.
 
+## 2026-09-28
+
+- `reserved-main-worktree` gives each concurrent writer a linked worktree and branch. The main checkout stays clean on
+  the current default branch for synchronization and publication of verified merged releases. Release preparation uses a
+  linked worktree based on the configured release branch and a pull request; one operator owns the main checkout through
+  release verification and publication. Release artifacts are built from the verified commit.
+
 ## 2026-09-22
 
 - `bump-from-type` increments the minor for a `feat` and for a breaking change alike, above `1.0.0` and below it, and
