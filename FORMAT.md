@@ -99,6 +99,14 @@ a mistake and never a judgement.
    MUST NOT move it backwards.
 7. A published release is not withdrawn. A release found to be wrong is superseded by another, and the superseding
    version's section says so.
+8. A release's **release commit** is the commit on the release branch it was cut from, whose manifests and changelog
+   declare its version. A version tag MUST name its release commit, or a commit built from it that carries a
+   `Source-Commit:` trailer naming the release commit's full SHA. A floating major names no release, and MAY name a
+   built commit where the exact tags name release commits.
+9. A tool finding a tag's release commit MUST take the tagged commit when the release branch contains it, and otherwise
+   the commit its `Source-Commit` trailer names. It MAY read a `Workflow-Commit` trailer from a tag that carries no
+   `Source-Commit`, which is what tags published before this rule carry. A tag that leads back to neither MUST be
+   reported rather than guessed at.
 
 ## Distribution tags
 
@@ -115,9 +123,9 @@ A registry's mutable tags, such as npm's dist-tags, point at immutable versions.
 
 A tool deciding whether a version was incremented enough:
 
-1. The **baseline** is the newest tag matching the project's tag shape that is reachable from the commit being judged,
-   which is what `git describe` answers. A tag on a branch this commit does not descend from is another line's release
-   and MUST NOT be the baseline.
+1. The **baseline** is the newest exact version tag whose release commit, found as "Versions and tags" says, the commit
+   being judged contains. A floating major names no release. A tag whose release commit is on a branch this commit does
+   not descend from is another line's release and MUST NOT be the baseline.
 2. The **required increment** is the largest that the types in the range imply, by the table above.
 3. The version being judged MUST be greater than or equal to the baseline incremented by the required increment,
    compared by semantic version rules.
@@ -230,16 +238,38 @@ release:
   merge: squash
   checks: tests.yml
   publish: publish.yml
+  trigger: tag
   registry: https://registry.example/<name>/{version}
 ```
 
 17. `branch` is the branch a release is cut from. Absent, it is the repository's default branch.
-18. `checks` names the workflow that MUST be green on the commit a tag will name. Absent, nothing is waited for.
-19. `publish` names the workflow a tag starts. Absent, pushing the tag is the end of it.
+18. `checks` names the workflow that MUST be green on a release commit before its release is published. Absent, nothing
+    is waited for.
+19. `publish` names the workflow that publishes a release. Absent, the tag is the release and nothing is watched. A
+    repository whose `trigger` includes `dispatch` MUST name it.
 20. `registry` is a URL that MAY be checked before a release, with `{version}` where the version goes. Where it is
     checked it MUST answer 404 for a version nobody has released. Not every registry answers a question like that, and a
     repository whose does not leaves it out.
 21. `merge` is how a release's pull request lands: `squash`, `rebase` or `merge`. Absent, it is `squash`, which is the
     only one a branch requiring both signed commits and linear history accepts.
-22. A tool MUST NOT tag a commit whose `checks` workflow has not passed on that commit.
+22. A tool MUST NOT publish a release, by pushing its tag or by dispatching `publish`, before `checks` has passed on its
+    release commit.
 23. The shape of the tag is the one in "Versions and tags", which this section does not redeclare.
+24. `trigger` says what starts `publish`: `tag`, pushing the version tag, or `dispatch`, starting `publish` by hand,
+    which then creates the tag. A list of both means either starts it, and the first is what a tool cutting a release
+    does unless asked for the other. Absent, it is `tag`.
+25. Under `tag`, whoever cuts the release creates the version tag, signed, on the release commit. `publish` MUST NOT
+    create or move it.
+26. Under `dispatch`, `publish` takes two inputs. `version` is the version being released, with no `v`. `commit` is the
+    release commit's full SHA, or `HEAD` for whatever the dispatched ref names when the run starts, which is its
+    default. A tool cutting a release MUST pass the SHA, because the branch can move between the merge it verified and
+    the run.
+27. A dispatched `publish` MUST refuse, before it publishes anything, when the commit it checked out is not `commit`,
+    when a manifest there declares a version other than `version`, or when `v<version>` already exists. It then creates
+    `v<version>` as "Versions and tags" requires.
+28. Both triggers MAY be listed only where a dispatched `publish` tags the release commit itself. Where it tags a built
+    commit, a pushed tag would name the source of one release and a built tree for every other, so `dispatch` is listed
+    alone.
+29. A tag created with a workflow's own `GITHUB_TOKEN` starts no workflow. Under `dispatch`, whatever a tag push would
+    have started after publication runs inside `publish` instead. Where both triggers are listed, `publish` MUST create
+    the tag with that token, so the tag it creates does not start `publish` a second time.
