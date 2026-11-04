@@ -18,6 +18,7 @@ One line per convention. Each name links to its full entry.
 | [`delete-on-merge`](conventions/delete-on-merge.md)               | A branch is deleted once the change it carried has merged, and content decides whether it merged.                                 | draft  |
 | [`signed-git`](conventions/signed-git.md)                         | Branches use PRs and git-worktrees; merges squash or retain signed rebased commits; every commit and tag is signed.               | draft  |
 | [`reserved-main-worktree`](conventions/reserved-main-worktree.md) | Each writer uses a linked worktree; the main checkout stays clean on the current default branch for synchronization and releases. | draft  |
+| [`traceable-tag`](conventions/traceable-tag.md)                   | Every version tag names the commit its release was cut from, or a built commit whose `Source-Commit` trailer does.                | draft  |
 
 Statuses: `draft` (proposed, not yet enforced by any tool), `active` (the maintainer's judgement that it is settled
 enough to rely on), `deprecated` (kept for existing adopters; the entry names its successor).

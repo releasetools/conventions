@@ -2,6 +2,18 @@
 
 Dated entries, newest first.
 
+## 2026-11-04
+
+- `traceable-tag`: every version tag leads back to the commit its release was cut from, by naming it or through a
+  `Source-Commit` trailer on the built commit it names. The baseline a version is judged against is found through that
+  commit rather than by `git describe`, which never reaches a tag on a built tree and returns a floating major where one
+  shares the release commit.
+- `release.trigger` says what starts a release: `tag`, the default, where whoever cuts it pushes the signed tag, or
+  `dispatch`, where the publish workflow is started by hand with `version` and `commit` and creates the tag itself. It
+  refuses a branch that moved past `commit`, a manifest declaring another version, and a tag that already exists. A list
+  of both is allowed where a dispatch tags the release commit, not a built tree.
+- `checks` passes on the release commit before a release is published, whichever of the two publishes it.
+
 ## 2026-09-28
 
 - `reserved-main-worktree` gives each concurrent writer a linked worktree and branch. The main checkout stays clean on
