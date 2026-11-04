@@ -4,6 +4,9 @@ Dated entries, newest first.
 
 ## 2026-11-04
 
+- `immutable-tag`: an exact version tag is never moved once published, and a broken release is superseded by the next
+  version. It applies unless a repository excepts it, which is now the only way FORMAT allows a tag to move. A
+  dispatched publish there may replace an existing tag only when the dispatch asks it to.
 - `traceable-tag`: every version tag leads back to the commit its release was cut from, by naming it or through a
   `Source-Commit` trailer on the built commit it names. The baseline a version is judged against is found through that
   commit rather than by `git describe`, which never reaches a tag on a built tree and returns a floating major where one

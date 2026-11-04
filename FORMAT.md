@@ -94,7 +94,9 @@ a mistake and never a judgement.
 4. A tag naming a release is `v<version>`, and carries no other prefix. A repository whose projects version
    independently has no shape of its own: it tags what it releases as one thing, or it tags nothing and its projects are
    released by what reads their manifests.
-5. An exact version tag MUST NOT be moved once published.
+5. An exact version tag MUST NOT be moved once published, unless the repository excepts
+   [`immutable-tag`](conventions/immutable-tag.md). One that does MAY move a tag to publish the same version again, and
+   a tool moving one MUST report the commit it named before.
 6. A floating major tag, `v<major>`, MAY be moved, and MUST point at the newest release on that major line. A backport
    MUST NOT move it backwards.
 7. A published release is not withdrawn. A release found to be wrong is superseded by another, and the superseding
@@ -266,7 +268,8 @@ release:
     the run.
 27. A dispatched `publish` MUST refuse, before it publishes anything, when the commit it checked out is not `commit`,
     when a manifest there declares a version other than `version`, or when `v<version>` already exists. It then creates
-    `v<version>` as "Versions and tags" requires.
+    `v<version>` as "Versions and tags" requires. Where the repository excepts `immutable-tag`, it MAY replace an
+    existing `v<version>` instead, and only when the dispatch asks it to.
 28. Both triggers MAY be listed only where a dispatched `publish` tags the release commit itself. Where it tags a built
     commit, a pushed tag would name the source of one release and a built tree for every other, so `dispatch` is listed
     alone.
