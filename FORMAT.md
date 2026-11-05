@@ -134,6 +134,12 @@ A tool deciding whether a version was incremented enough:
 4. Greater than is not a failure. A minor already claimed by an earlier unreleased change absorbs every patch that
    follows it.
 5. With no baseline, any version is a first release and MUST pass.
+6. A baseline that is a pre-release of X.Y.Z is a step towards X.Y.Z, so rules 2 to 4 do not apply to it. The version
+   being judged MUST be a later pre-release of X.Y.Z, or X.Y.Z itself, whatever the types in the range: after
+   `1.0.0-rc.1` come `1.0.0-rc.2` and `1.0.0`, and neither `1.0.1` nor `1.1.0`.
+7. Pre-release identifiers are compared as Semantic Versioning says: numeric ones as numbers and the rest as text. So
+   `rc.10` follows `rc.2`, while `rc10` precedes `rc2`, and a project expecting more than nine candidates separates the
+   number with a dot.
 
 ## The changelog
 

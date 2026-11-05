@@ -2,6 +2,12 @@
 
 Dated entries, newest first.
 
+## 2026-11-13
+
+- After a pre-release, the next version is a later pre-release of the same version or that version itself: after
+  `1.0.0-rc.1` come `1.0.0-rc.2` and `1.0.0`, whatever the types of the changes in between.
+- Pre-release identifiers compare as Semantic Versioning says, so `rc10` precedes `rc2`; `rc.10` follows `rc.2`.
+
 ## 2026-11-08
 
 - `traceable-tag`: `signed-push` leaves `Workflow-Commit` out of a commit whose `Source-Commit` names the same commit,
