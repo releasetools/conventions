@@ -10,6 +10,7 @@
     "Every change a reader can observe writes its own changelog entry, in the change that makes it, rather than leaving it to be reconstructed at release time.",
     "A version is a semantic version and carries no leading `v`. The tag carries one.",
     "A repository switches a convention off by naming it under `conventions.except` in `.releasetools.yaml` at its root, which is the file every releasetools tool reads.",
-    "A version tag names the commit its release was cut from, or a built commit whose `Source-Commit` trailer names it. `release.trigger` in `.releasetools.yaml` says whether pushing the tag or dispatching the publish workflow starts a release."
+    "A version tag names the commit its release was cut from, or a built commit whose `Source-Commit` trailer names it. `release.trigger` in `.releasetools.yaml` says whether pushing the tag or dispatching the publish workflow starts a release.",
+    "An exact version tag is never moved once published; a broken release is superseded by the next version. A repository that re-publishes under the same tag excepts `immutable-tag` in `.releasetools.yaml`."
   ]
 }
