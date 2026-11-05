@@ -2,6 +2,13 @@
 
 Dated entries, newest first.
 
+## 2026-11-05
+
+- After a pre-release, the next version is a later pre-release of the same version or that version itself: after
+  `1.0.0-rc.1` come `1.0.0-rc.2` and `1.0.0`. The increment the changes imply applied to the pre-release, which asked
+  for `1.0.1` and let a release skip past `1.0.0`.
+- Pre-release identifiers compare as Semantic Versioning says, so `rc10` precedes `rc2`; `rc.10` follows `rc.2`.
+
 ## 2026-11-04
 
 - `immutable-tag`: an exact version tag is never moved once published, and a broken release is superseded by the next
