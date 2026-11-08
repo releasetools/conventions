@@ -2,6 +2,11 @@
 
 Dated entries, newest first.
 
+## 2026-11-08
+
+- `traceable-tag`: `signed-push` leaves `Workflow-Commit` out of a commit whose `Source-Commit` names the same commit,
+  so a tag on a built commit names its release commit once.
+
 ## 2026-11-04
 
 - `immutable-tag`: an exact version tag is never moved once published, and a broken release is superseded by the next
