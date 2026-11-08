@@ -55,7 +55,7 @@ one carrying the trailer. [FORMAT.md](../FORMAT.md#configuration) says which, an
 A floating major is not a release, so it may sit on a built commit where the exact tags name release commits:
 releasetools/cli tags `v0.4.5` on `main` and moves `v0` to the built tree on `release/v0`.
 
-`releasetools/actions/signed-push` writes a `Workflow-Commit` trailer on every commit it makes, naming the commit the
-publishing workflow ran on. For a dispatch on the release branch that is the release commit, and tools read it from tags
-published before this convention. It is a fact about the run rather than a claim about the release, so a tag published
-now carries `Source-Commit`.
+`releasetools/actions/signed-push` writes a `Workflow-Commit` trailer naming the commit the publishing workflow ran on.
+For a dispatch on the release branch that is the release commit, and tools read it from tags published before this
+convention. It is a fact about the run rather than a claim about the release, so a tag published now carries
+`Source-Commit`, and signed-push leaves `Workflow-Commit` out when `Source-Commit` names the same commit.
