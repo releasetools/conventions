@@ -20,6 +20,7 @@ One line per convention. Each name links to its full entry.
 | [`reserved-main-worktree`](conventions/reserved-main-worktree.md) | Each writer uses a linked worktree; the main checkout stays clean on the current default branch for synchronization and releases. | draft  |
 | [`traceable-tag`](conventions/traceable-tag.md)                   | Every version tag names the commit its release was cut from, or a built commit whose `Source-Commit` trailer does.                | draft  |
 | [`immutable-tag`](conventions/immutable-tag.md)                   | An exact version tag names one commit for good; a broken release is superseded by the next version, never re-tagged.              | draft  |
+| [`tag-version-to-release`](conventions/tag-version-to-release.md) | A maintainer pushes the signed version tag on the release commit, and no workflow creates or moves it.                            | draft  |
 
 Statuses: `draft` (proposed, not yet enforced by any tool), `active` (the maintainer's judgement that it is settled
 enough to rely on), `deprecated` (kept for existing adopters; the entry names its successor).

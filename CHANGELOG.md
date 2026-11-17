@@ -2,6 +2,11 @@
 
 Dated entries, newest first.
 
+## 2026-11-17
+
+- `tag-version-to-release`: a release starts when a maintainer pushes the version tag, annotated and signed, on the
+  release commit, and no workflow creates or moves a repository's own exact version tags.
+
 ## 2026-11-13
 
 - After a pre-release, the next version is a later pre-release of the same version or that version itself: after
