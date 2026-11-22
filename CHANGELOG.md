@@ -4,6 +4,8 @@ Dated entries, newest first.
 
 ## 2026-11-22
 
+- `tag-version-to-release` no longer says a ruleset refuses an unsigned version tag. A ruleset's "Require signed
+  commits" rule checks commits, not the tag object.
 - A repository whose `release.trigger` includes `dispatch` excepts `tag-version-to-release`, since its `publish`
   workflow creates the version tag.
 
