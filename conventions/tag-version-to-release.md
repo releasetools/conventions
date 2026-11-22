@@ -12,10 +12,10 @@ creates or moves a repository's own exact version tags.
 
 ## Why
 
-A tag signed by whoever cut the release names that person. GitHub verifies it against a key on their account,
-`git verify-tag` checks it offline, and a ruleset that requires signatures on `v*` refuses anything else. A workflow
-cannot make that tag. `GITHUB_TOKEN` and App tokens create tags through the API as lightweight refs with no signature,
-and a key held in CI signs as whoever registered it, so the signature no longer says who released.
+A tag signed by whoever cut the release names that person. GitHub verifies it against a key on their account, and
+`git verify-tag` checks it offline. A workflow cannot make that tag. `GITHUB_TOKEN` and App tokens create tags through
+the API as lightweight refs with no signature, and a key held in CI signs as whoever registered it, so the signature no
+longer says who released.
 
 A workflow that creates its own tag also needs a second way to start and a second set of checks. It takes the version
 and the commit as inputs, refuses a branch that moved after the merge and a manifest that disagrees, and runs inside
