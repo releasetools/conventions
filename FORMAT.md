@@ -265,7 +265,8 @@ release:
 23. The shape of the tag is the one in "Versions and tags", which this section does not redeclare.
 24. `trigger` says what starts `publish`: `tag`, pushing the version tag, or `dispatch`, starting `publish` by hand,
     which then creates the tag. A list of both means either starts it, and the first is what a tool cutting a release
-    does unless asked for the other. Absent, it is `tag`.
+    does unless asked for the other. Absent, it is `tag`. A repository whose `trigger` includes `dispatch` MUST except
+    [`tag-version-to-release`](conventions/tag-version-to-release.md).
 25. Under `tag`, whoever cuts the release creates the version tag, signed, on the release commit. `publish` MUST NOT
     create or move it.
 26. Under `dispatch`, `publish` takes two inputs. `version` is the version being released, with no `v`. `commit` is the
