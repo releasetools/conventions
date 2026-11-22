@@ -58,10 +58,6 @@ jobs:
 
 ## Notes
 
-A GitHub Action whose `action.yml` runs a bundled `dist/` commits that bundle on the release branch. The release commit
-is then the commit consumers run, so its tag works as a `uses:` ref and as a pinned SHA. A CI job that rebuilds the
-bundle and fails on any difference keeps it current.
-
 The release tool pushes the tag only after `checks` passes on the release commit, as
 [FORMAT.md](../FORMAT.md#configuration) requires, so a failing build shows up before the version exists. A failure
 inside publication itself spends the version, and [`immutable-tag`](immutable-tag.md) says what follows.
@@ -74,5 +70,6 @@ This convention covers exact version tags. A floating major such as `v1` moves o
 [FORMAT.md](../FORMAT.md#versions-and-tags) describes.
 
 The other way a release starts is `release.trigger: dispatch` in [FORMAT.md](../FORMAT.md#configuration), where the
-publish workflow creates the tag on a built commit. releasetools/actions and releasetools/mutex publish that way,
-because the `dist/` their `action.yml` runs is built at release time rather than committed.
+publish workflow creates the tag, and a repository that uses it excepts this convention. releasetools/actions and
+releasetools/mutex publish that way, because the `dist/` their `action.yml` runs is built at release time and their tag
+names that built commit.

@@ -2,6 +2,11 @@
 
 Dated entries, newest first.
 
+## 2026-11-22
+
+- A repository whose `release.trigger` includes `dispatch` excepts `tag-version-to-release`, since its `publish`
+  workflow creates the version tag.
+
 ## 2026-11-17
 
 - `tag-version-to-release`: a release starts when a maintainer pushes the version tag, annotated and signed, on the
